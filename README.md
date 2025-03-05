@@ -1,6 +1,6 @@
 **Project Name:** Minuteman Meals \
 **Team Name:** Team Awesome Goated \
-**Team Members:** Manya Phutela (manyap062), Sam Sheedy (sam-s04), Victor Chen (vc64), Aarav Nair (aarav-nair), Manu Hegde (mnhegde)
+**Team Members:** Manya Phutela ([manyap062](https://github.com/manyap062)), Sam Sheedy ([sam-s04](https://github.com/sam-s04)), Victor Chen ([vc64](https://github.com/vc64)), Aarav Nair ([aarav-nair](https://github.com/aarav-nair)), Manu Hegde ([mnhegde](https://github.com/mnhegde))
 
 
 **Overview:** \
