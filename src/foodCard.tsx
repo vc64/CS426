@@ -1,4 +1,3 @@
-import img from "./assets/react.svg"
 import "./FoodCard.css";
 
 type FoodCardProps = {
@@ -8,12 +7,14 @@ type FoodCardProps = {
     description: string;
     price: string;
     distance: number;
+    img: string;
 }
 
-const FoodCard = ({ organization, food, location, description, price, distance }: FoodCardProps) => {
+const FoodCard = ({ organization, food, location, description, price, distance, img }: FoodCardProps) => {
+    const foodImg = `/src/assets/${img}`;
     return (
         <div className="card">
-            <img className="food-image" src={img} alt="Food"></img>
+            <img className="food-image" src={foodImg} alt="Food"></img>
             <h2 className="org-name">{organization}</h2>
             <h1 className="food-name">{food}</h1>
             <h2 className="location">{location}</h2>

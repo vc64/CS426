@@ -9,7 +9,8 @@ function App() {
     location: 'Hasbrouck Laboratory',
     description: 'Example food description. This food looks so good.',
     price: 'Free',
-    distance: 0.2
+    distance: 0.2,
+    img: "pizza.jpg"
   }
   
   return (
@@ -21,9 +22,10 @@ function App() {
         description={tempdata.description}
         price={tempdata.price}
         distance={tempdata.distance}
+        img={tempdata.img}
       />
-      <FoodCard organization={'Organization'} food={'Food'} location={'Location'} description={'Description'} price={'Price'} distance={0}/>
-      <FoodCard organization={'Organization'} food={'Food'} location={'Location'} description={'Description'} price={'Price'} distance={0}/>
+      <FoodCard organization={'Organization'} food={'Food'} location={'Location'} description={'Description'} price={'Price'} distance={0} img={"pizza.jpg"}/>
+      <FoodCard organization={'Organization'} food={'Food'} location={'Location'} description={'Description'} price={'Price'} distance={0} img={"pizza.jpg"}/>
     </div>
   )
 }
