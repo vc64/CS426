@@ -1,18 +1,26 @@
 import img from "./assets/react.svg"
 
-const FoodCard = () => {
+type FoodCardProps = {
+    organization: string;
+    food: string;
+    location: string;
+    description: string;
+}
+
+const FoodCard = ({ organization, food, location, description }: FoodCardProps) => {
     return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg bg-indigo-500">
-            <img className="w-full" src={img} alt="Food"></img>
-            <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">Food</div>
-            <p className="text-gray-700 text-base">
+        <div className="card">
+            <img className="food-image" src={img} alt="Food"></img>
+            <h2 className="org-name">{organization}</h2>
+            <h1 className="food-name">{food}</h1>
+            <h2 className="location">{location}</h2>
+            <p className="description">
+                {description}
                 Example food description. This food looks so good.
             </p>
-            </div>
         </div>
     );
 }
 
-export default FoodCard
+export default FoodCard;
 

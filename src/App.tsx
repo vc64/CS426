@@ -5,9 +5,10 @@ function App() {
 
   return (
     <div>
+      {/* <FoodCard />
       <FoodCard />
-      <FoodCard />
-      <FoodCard />
+      <FoodCard /> */} 
+      {/* i will add props later going to class :D */}
     </div>
   )
 }
