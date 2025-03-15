@@ -1,31 +1,50 @@
-import { Clock, MapPin, Tag, Utensils } from 'lucide-react';
+import { useState } from 'react';
+import { Clock, MapPin, Tag, Utensils, Heart, HeartOff } from 'lucide-react';
 // Found this within lucide-react package, super useful to leverage within our food cards
 const defaultFood = {
   foodName: "Assorted Pastries",
   restaurantName: "Bella Bakery",
-  originalPrice: 15.99,
-  discountedPrice: 5.99,
   imageUrl: "/api/placeholder/300/200",
   distance: "0.7 miles away",
   pickupTime: "Today, 5:00 PM - 6:30 PM",
   tags: ["Vegetarian", "Bakery"],
-  itemsLeft: 3
+  active: true,
+  isFavorite: true
 };
+
+const reserveButtonStyle = {
+    backgroundColor: '#16a34a', // Tailwind green-600
+    color: 'white',
+    fontWeight: 'bold',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.5rem',
+    width: '100%',
+    transition: 'background-color 200ms',
+  };
+
+  const handleMouseEnter = (e) => e.target.style.backgroundColor = '#15803d';
+  
+  const handleMouseLeave = (e) => e.target.style.backgroundColor = '#16a34a';
 // Food Card component
 const FoodCard = ({ food = {} }) => {
+    // Allows us to have default values for the card
   const foodData = { ...defaultFood, ...food };
   
   const {
     foodName,
     restaurantName,
-    originalPrice,
-    discountedPrice,
     imageUrl,
     distance,
     pickupTime,
     tags,
-    itemsLeft
+    active,
+    isFavorite
   } = foodData;
+
+  // In future, may want to re-render food cards so that those favorited pop up first...
+  // So need to take this into account when mapping grid
+  const [favoriteState, setIsFavorite] = useState(isFavorite);
+  const handleFavoriteClick = (e) => setIsFavorite(!favoriteState);
 
   return (
     // Used many Tailwind CSS classes to have the styling applied
@@ -36,18 +55,26 @@ const FoodCard = ({ food = {} }) => {
           alt={foodName} 
           className="w-full h-48 object-cover"
         />
-        <div className="absolute top-0 right-0 bg-green-500 text-white px-2 py-1 m-2 rounded-md text-sm font-bold">
-          {itemsLeft} left
+        {active ? 
+        (<div className="absolute top-0 right-0 bg-green-500 text-white px-2 py-1 m-2 rounded-md text-sm font-bold">Active</div>)
+        : (<div className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-sm font-bold">Closed</div>)}
+        
+        <div className="absolute top-0 left-0 m-2" onClick={handleFavoriteClick}>
+          {favoriteState ? (
+            <div className="bg-white p-2 rounded-full shadow-md">
+              <Heart size={20} color="#ef4444" fill="#ef4444" />
+            </div>
+          ) : (
+            <div className="bg-white p-2 rounded-full shadow-md opacity-70 hover:opacity-100">
+              <HeartOff size={20} color="#6b7280" />
+            </div>
+          )}
         </div>
       </div>
-      
+
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-bold text-gray-800">{foodName}</h3>
-          <div className="flex flex-col items-end">
-            <span className="text-gray-500 line-through text-sm">${originalPrice.toFixed(2)}</span>
-            <span className="text-green-600 font-bold text-lg">${discountedPrice.toFixed(2)}</span>
-          </div>
         </div>
         
         <div className="flex items-center mb-3">
@@ -75,9 +102,7 @@ const FoodCard = ({ food = {} }) => {
           ))}
         </div>
         
-        <button className="w-full py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-colors duration-200">
-          Reserve Now
-        </button>
+        <button style={reserveButtonStyle} onMouseEnter={(e) => handleMouseEnter(e)} onMouseLeave={(e) => handleMouseLeave(e)}>Reserve Now</button>
       </div>
     </div>
   );

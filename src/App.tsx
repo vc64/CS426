@@ -8,46 +8,42 @@ function App() {
     {
       foodName: "Assorted Pastries",
       restaurantName: "Bella Bakery",
-      originalPrice: 15.99,
-      discountedPrice: 5.99,
       imageUrl: "Pastries.png",
       distance: "0.7 miles away",
       pickupTime: "Today, 5:00 PM - 6:30 PM",
       tags: ["Vegetarian", "Bakery"],
-      itemsLeft: 3
+      active: true,
+      isFavorite: true
     },
     {
       foodName: "Sushi Platter",
       restaurantName: "Sakura Japanese",
-      originalPrice: 24.99,
-      discountedPrice: 9.99,
       imageUrl: "Sushi.jpg",
       distance: "1.2 miles away",
       pickupTime: "Today, 8:30 PM - 9:30 PM",
       tags: ["Japanese", "Fish"],
-      itemsLeft: 2
+      active: true,
+      isFavorite: true
     },
     {
       foodName: "Pizza Combo",
       restaurantName: "Mario's Pizzeria",
-      originalPrice: 19.50,
-      discountedPrice: 7.99,
       imageUrl: "Pizza.jpg",
       distance: "0.5 miles away",
       pickupTime: "Today, 9:00 PM - 10:00 PM",
       tags: ["Italian", "Dairy"],
-      itemsLeft: 1
+      active: false,
+      isFavorite: false
     },
     {
       foodName: "Salad Box",
       restaurantName: "Green Leaf",
-      originalPrice: 12.99,
-      discountedPrice: 4.99,
       imageUrl: "Salad.jpg",
       distance: "1.8 miles away",
       pickupTime: "Tomorrow, 11:30 AM - 1:00 PM",
       tags: ["Vegan", "Organic"],
-      itemsLeft: 5
+      active: false,
+      isFavorite: false
     }
   ];
 
