@@ -11,7 +11,7 @@ const defaultFood = {
   tags: ["Vegetarian", "Bakery"],
   itemsLeft: 3
 };
-
+// Food Card component
 const FoodCard = ({ food = {} }) => {
   const foodData = { ...defaultFood, ...food };
   
