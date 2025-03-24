@@ -5,7 +5,7 @@ const defaultFood = {
   foodName: "Assorted Pastries",
   restaurantName: "Bella Bakery",
   imageUrl: "/api/placeholder/300/200",
-  distance: "0.7 miles away",
+  distance: 0.7,
   pickupTime: "Today, 5:00 PM - 6:30 PM",
   tags: ["Vegetarian", "Bakery"],
   active: true,
@@ -84,7 +84,7 @@ const FoodCard = ({ food = {} }) => {
         
         <div className="flex items-center mb-3">
           <MapPin size={16} className="text-gray-500 mr-1" />
-          <span className="text-gray-600 text-sm">{distance}</span>
+          <span className="text-gray-600 text-sm">{distance + " miles away"}</span>
         </div>
         
         <div className="flex items-center mb-3">
