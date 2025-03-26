@@ -1,5 +1,6 @@
 import FoodCard from './FoodCard';
 import './App.css';
+import AppBanner from "./Banner.tsx";
 
 function App() {
 
@@ -48,12 +49,13 @@ function App() {
   ];
 
   return (
-    <div className="absolute inset-0 bg-white w-full min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 text-center">Minuteman Meals</h1>
-          <p className="text-gray-600 text-center mt-2">Save food and money by rescuing these meals</p>
-        </header>
+    <div className="app-wrapper">
+      <AppBanner
+        logoSrc="/src/assets/logo.png"
+        name="Minuteman Meals"
+        desc="Find free food on campus!"
+        profileSrc="/src/assets/profile.png"
+      />
         
         {/* 
         Method to make this display as a grid - map it into an array of cards.
