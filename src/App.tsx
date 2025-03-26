@@ -1,6 +1,7 @@
 import FoodCard from './FoodCard';
 import FilterButton from './FilterButton';
 import './App.css';
+import { useTag } from './contexts/TagContext.tsx';
 
 function App() {
 
@@ -88,6 +89,9 @@ function App() {
     },
   ];
 
+  const { selectedTag } = useTag();
+  const filteredItems = selectedTag === 'All' ? foodItems : foodItems.filter(item => item.tags.includes(selectedTag));
+
   return (
     <div className="absolute inset-0 bg-white w-full min-h-screen">
       <div className="container mx-auto px-4 py-8">
@@ -104,7 +108,7 @@ function App() {
         This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
         */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {foodItems.map((item, index) => (
+          {filteredItems.map((item, index) => (
             <FoodCard key={index} food={item} />
           ))}
         </div>
