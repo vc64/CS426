@@ -89,6 +89,7 @@ function App() {
     },
   ];
 
+  // Shows only the cards with the selected tag from the filtering button. Default tag on startup is 'All' which shows all cards.
   const { selectedTag } = useTag();
   const filteredItems = selectedTag === 'All' ? foodItems : foodItems.filter(item => item.tags.includes(selectedTag));
 
