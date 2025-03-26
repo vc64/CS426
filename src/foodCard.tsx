@@ -44,7 +44,7 @@ const FoodCard = ({ food = {} }) => {
   // In future, may want to re-render food cards so that those favorited pop up first...
   // So need to take this into account when mapping grid
   const [favoriteState, setIsFavorite] = useState(isFavorite);
-  const handleFavoriteClick = (e) => setIsFavorite(!favoriteState);
+  const handleFavoriteClick = () => setIsFavorite(!favoriteState);
 
   return (
     // Used many Tailwind CSS classes to have the styling applied

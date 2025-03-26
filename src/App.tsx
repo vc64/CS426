@@ -1,4 +1,5 @@
 import FoodCard from './FoodCard';
+import FilterButton from './FilterButton';
 import './App.css';
 
 function App() {
@@ -6,45 +7,85 @@ function App() {
   // Mock data for the cards
   const foodItems = [
     {
-      foodName: "Assorted Pastries",
-      restaurantName: "Bella Bakery",
-      imageUrl: "Pastries.png",
-      distance: "0.7 miles away",
-      pickupTime: "Today, 5:00 PM - 6:30 PM",
-      tags: ["Vegetarian", "Bakery"],
-      active: true,
-      isFavorite: true
-    },
-    {
-      foodName: "Sushi Platter",
-      restaurantName: "Sakura Japanese",
-      imageUrl: "Sushi.jpg",
-      distance: "1.2 miles away",
-      pickupTime: "Today, 8:30 PM - 9:30 PM",
-      tags: ["Japanese", "Fish"],
-      active: true,
-      isFavorite: true
-    },
-    {
-      foodName: "Pizza Combo",
-      restaurantName: "Mario's Pizzeria",
+      foodName: "Pepperoni Pizza",
+      restaurantName: "Worcester Dining Commons",
       imageUrl: "Pizza.jpg",
-      distance: "0.5 miles away",
+      distance: "Worcester Dining Commons, 0.1 miles away",
+      pickupTime: "Today, 5:00 PM - 6:30 PM",
+      tags: ["Italian"],
+      active: true,
+      isFavorite: false
+    },
+    {
+      foodName: "Chocolate Cookies",
+      restaurantName: "UMASO",
+      imageUrl: "Chocolate-Cookies.jpg",
+      distance: "Hasbrouck Laboratories, 0.3 miles away",
+      pickupTime: "Today, 8:30 PM - 9:30 PM",
+      tags: ["Dessert"],
+      active: true,
+      isFavorite: false
+    },
+    {
+      foodName: "Chicken Biryani",
+      restaurantName: "Cooking Club",
+      imageUrl: "Chicken-Biryani.jpg",
+      distance: "Chenoweth Laboratory, 0.5 miles away",
       pickupTime: "Today, 9:00 PM - 10:00 PM",
-      tags: ["Italian", "Dairy"],
+      tags: ["South Asian", "Gluten-Free", "Student-Made"],
       active: false,
       isFavorite: false
     },
     {
-      foodName: "Salad Box",
-      restaurantName: "Green Leaf",
+      foodName: "Garden Salad",
+      restaurantName: "CICS",
       imageUrl: "Salad.jpg",
-      distance: "1.8 miles away",
+      distance: "Computer Science Building, 1.1 miles away",
       pickupTime: "Tomorrow, 11:30 AM - 1:00 PM",
-      tags: ["Vegan", "Organic"],
+      tags: ["Vegetarian", "Vegan", "Dairy-Free", "Organic"],
+      active: true,
+      isFavorite: false
+    },
+    {
+      foodName: "Dalgona Coffee",
+      restaurantName: "Korean Students Association",
+      imageUrl: "Coffee.jpg",
+      distance: "Student Union, 0.2 miles away",
+      pickupTime: "Tomorrow, 2:00 PM - 3:00 PM",
+      tags: ["Drink", "Vegetarian", "Student-Made"],
+      active: true,
+      isFavorite: false
+    },
+    {
+      foodName: "Assorted Candy",
+      restaurantName: "Positive Presence",
+      imageUrl: "Candy.jpg",
+      distance: "Worcester Dining Commons, 0.1 miles away",
+      pickupTime: "Today, 2:00 PM - 4:00 PM",
+      tags: ["Dessert"],
       active: false,
       isFavorite: false
-    }
+    },
+    {
+      foodName: "Mac & Cheese",
+      restaurantName: "Harvest Market",
+      imageUrl: "Mac-and-Cheese.jpg",
+      distance: "Harvest Market, 0.1 miles away",
+      pickupTime: "Tomorrow, 11:00 PM - 12:00 AM",
+      tags: ["Vegetarian"],
+      active: true,
+      isFavorite: false
+    },
+    {
+      foodName: "Gluten-Free Brownies",
+      restaurantName: "Yum! Bakery",
+      imageUrl: "Brownies.jpg",
+      distance: "Blue Wall, 0.2 miles away",
+      pickupTime: "Today, 8:00 PM - 9:00 PM",
+      tags: ["Dessert", "Gluten-Free"],
+      active: true,
+      isFavorite: false
+    },
   ];
 
   return (
@@ -54,7 +95,9 @@ function App() {
           <h1 className="text-3xl font-bold text-gray-800 text-center">Minuteman Meals</h1>
           <p className="text-gray-600 text-center mt-2">Save food and money by rescuing these meals</p>
         </header>
-        
+        <div>
+          <FilterButton/>
+        </div>
         {/* 
         Method to make this display as a grid - map it into an array of cards.
         When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
