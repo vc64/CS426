@@ -1,4 +1,5 @@
  export interface foodItemType {
+  id: number,
   foodName: string;
   restaurantName: string;
   imageUrl: string;
@@ -11,6 +12,7 @@
  
  export const foodItems: foodItemType[] = [
   {
+    id: 0,
     foodName: "Assorted Pastries",
     restaurantName: "Bella Bakery",
     imageUrl: "Pastries.png",
@@ -21,6 +23,7 @@
     isFavorite: true,
   },
   {
+    id: 1,
     foodName: "Sushi Platter",
     restaurantName: "Sakura Japanese",
     imageUrl: "Sushi.jpg",
@@ -31,6 +34,7 @@
     isFavorite: true,
   },
   {
+    id: 2,
     foodName: "Pizza Combo",
     restaurantName: "Mario's Pizzeria",
     imageUrl: "Pizza.jpg",
@@ -41,6 +45,7 @@
     isFavorite: false,
   },
   {
+    id: 3,
     foodName: "Salad Box",
     restaurantName: "Green Leaf",
     imageUrl: "Salad.jpg",
@@ -51,6 +56,7 @@
     isFavorite: false,
   },
   {
+    id: 4,
     foodName: "Burger Meal",
     restaurantName: "Grill Masters",
     imageUrl: "Burger.jpg",
@@ -61,6 +67,7 @@
     isFavorite: false,
   },
   {
+    id: 5,
     foodName: "Curry Feast",
     restaurantName: "Spice Paradise",
     imageUrl: "Curry.jpg",
@@ -71,6 +78,7 @@
     isFavorite: true,
   },
   {
+    id: 6,
     foodName: "Mediterranean Platter",
     restaurantName: "Olive Grove",
     imageUrl: "Mediterranean.jpg",
@@ -81,6 +89,7 @@
     isFavorite: false,
   },
   {
+    id: 7,
     foodName: "Taco Combo",
     restaurantName: "Fiesta Mexican",
     imageUrl: "Tacos.jpeg",
@@ -91,6 +100,7 @@
     isFavorite: true,
   },
   {
+    id: 8,
     foodName: "Dim Sum",
     restaurantName: "Dragon Palace",
     imageUrl: "DimSum.jpg",
@@ -101,6 +111,7 @@
     isFavorite: false,
   },
   {
+    id: 9,
     foodName: "Greek Salad",
     restaurantName: "Aegean Cafe",
     imageUrl: "GreekSalad.jpg",
@@ -111,6 +122,7 @@
     isFavorite: false,
   },
   {
+    id: 10,
     foodName: "BBQ Ribs",
     restaurantName: "Smokey's BBQ",
     imageUrl: "BBQRibs.jpg",
@@ -121,6 +133,7 @@
     isFavorite: true,
   },
   {
+    id: 11,
     foodName: "Vegan Bowl",
     restaurantName: "Pure Harvest",
     imageUrl: "VeganBowl.jpg",
@@ -131,6 +144,7 @@
     isFavorite: false,
   },
   {
+    id: 12,
     foodName: "Seafood Paella",
     restaurantName: "Tapas Corner",
     imageUrl: "Paella.jpg",
@@ -141,6 +155,7 @@
     isFavorite: false,
   },
   {
+    id: 13,
     foodName: "Ramen",
     restaurantName: "Noodle House",
     imageUrl: "Ramen.jpg",
@@ -151,6 +166,7 @@
     isFavorite: true,
   },
   {
+    id: 14,
     foodName: "Thai Curry",
     restaurantName: "Bangkok Kitchen",
     imageUrl: "ThaiCurry.jpg",
@@ -161,6 +177,7 @@
     isFavorite: false,
   },
   {
+    id: 15,
     foodName: "Charcuterie Board",
     restaurantName: "Wine & Dine",
     imageUrl: "Charcuterie.jpg",
@@ -171,6 +188,7 @@
     isFavorite: true,
   },
   {
+    id: 16,
     foodName: "Poke Bowl",
     restaurantName: "Island Fresh",
     imageUrl: "PokeBowl.jpg",
@@ -181,6 +199,7 @@
     isFavorite: false,
   },
   {
+    id: 17,
     foodName: "Vegetable Stir Fry",
     restaurantName: "Wok Master",
     imageUrl: "StirFry.jpg",
@@ -191,6 +210,7 @@
     isFavorite: false,
   },
   {
+    id: 18,
     foodName: "Middle Eastern Mezze",
     restaurantName: "Oasis Eatery",
     imageUrl: "Mezze.jpg",
@@ -201,6 +221,7 @@
     isFavorite: true,
   },
   {
+    id: 19,
     foodName: "Breakfast Combo",
     restaurantName: "Morning Glory Cafe",
     imageUrl: "Breakfast.jpg",
