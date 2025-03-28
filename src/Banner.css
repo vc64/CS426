@@ -1,0 +1,72 @@
+.app-banner {
+  width: 100%;
+  background-color: #dde8d8;
+  color: #4e7c3c;
+  display: flex;
+  align-items: center;  /* Vertically centers content */
+  justify-content: center; /* Horizontally centers content */
+  padding: 16px 0;
+  position: relative;
+  height: 150px; /* Ensures the banner has a fixed height */
+}
+  
+.banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers everything horizontally */
+  width: 100%;
+  position: relative; /* Allows absolute positioning inside */
+}
+  
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+  
+  .app-logo {
+    height: 125px;
+    width: auto;
+    border-radius: 4px;
+  }
+  
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center text horizontally */
+    text-align: center; /* Ensure text is centered */
+  }
+  
+  .app-title {
+    margin: 0;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.2;
+    font-family: "Franklin Gothic Medium";
+  }
+  
+  .app-description {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    opacity: 0.9;
+    font-family: "Franklin Gothic Medium";
+  }
+  
+  .profile-container {
+    position: absolute;
+    right: 16px;
+    display: flex;
+    align-items: center;
+}
+  
+  .profile-image {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+  }
