@@ -9,8 +9,6 @@ import { foodItems, foodItemType } from './data/foodItems.ts';
 function App() {
 
   // Mock data for the cards
-  
-
   // Shows only the cards with the selected tag from the filtering button. Default tag on startup is 'All' which shows all cards.
   const { selectedTag } = useTag();
 
