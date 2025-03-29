@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Clock, MapPin, Tag, Utensils, Heart, HeartOff } from 'lucide-react';
 import { foodItemType } from './data/foodItems';
 // Found this within lucide-react package, super useful to leverage within our food cards

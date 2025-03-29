@@ -1,14 +1,17 @@
-import { useState, useEffect } from 'react';
 import FoodCard from './foodCard';
-import { foodItemType, foodItems } from './data/foodItems';
+import { useState, useEffect } from 'react';
+import FilterButton from './FilterButton';
 import './App.css';
+import { useTag } from './contexts/TagContext.tsx';
 import AppBanner from "./Banner.tsx";
+import { foodItems, foodItemType } from './data/foodItems.ts';
 
 function App() {
 
   // Mock data for the cards
-  // Todo:
-  // Sort by distance, time open, favorites, active 
+  // Shows only the cards with the selected tag from the filtering button. Default tag on startup is 'All' which shows all cards.
+  const { selectedTag } = useTag();
+
   const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
 
   const cardMap = new Map<number, foodItemType>();
@@ -20,7 +23,9 @@ function App() {
     const notFavorites = arr.filter(e => !e.isFavorite);
     favorites.sort((a, b) => a.distance - b.distance);
     notFavorites.sort((a, b) => a.distance - b.distance);
-    return favorites.concat(notFavorites);
+    const sortedCards = favorites.concat(notFavorites);
+    // Need to implement functionality so user can choose this
+    return selectedTag === 'All' ? sortedCards : sortedCards.filter(item => item.tags.includes(selectedTag))
   }
 
   // Use useEffect to set initial cards only once
@@ -52,7 +57,9 @@ function App() {
         desc="Find free food on campus!"
         profileSrc="/src/assets/profile.png"
       />
-        
+        <div>
+          <FilterButton/>
+        </div>
         {/* 
         Method to make this display as a grid - map it into an array of cards.
         When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
