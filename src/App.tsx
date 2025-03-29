@@ -8,6 +8,7 @@ import { foodItems, foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from "./userProfile";
 import { UserProvider } from "./contexts/userContext";
+import { FoodForm } from './FoodForm.tsx';
 
 function App() {
   // Mock data for the cards
@@ -85,11 +86,13 @@ function App() {
                       <FilterButton />
                     </div>
                     {/* 
-        Method to make this display as a grid - map it into an array of cards.
-        When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
-        This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
-        */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 pb-8">
+                      Method to make this display as a grid - map it into an array of cards.
+                      When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
+                      This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
+                      */}
+                    <div className="overlay"></div>
+                    <FoodForm></FoodForm>
+                    <div className="flex flex-wrap gap-5 justify-center items-center">
                       {foodCards.map((item, index) => (
                         <FoodCard
                           key={index}

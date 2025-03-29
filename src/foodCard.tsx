@@ -48,7 +48,7 @@ const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: n
 
   return (
     // Used many Tailwind CSS classes to have the styling applied
-    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 w-[350px]">
       <div className="relative">
         <img 
           src={"/src/assets/" + imageUrl} 
