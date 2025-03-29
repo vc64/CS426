@@ -1,10 +1,11 @@
 import { Clock, MapPin, Tag, Utensils, Heart, HeartOff } from 'lucide-react';
 import { foodItemType } from './data/foodItems';
 // Found this within lucide-react package, super useful to leverage within our food cards
-const defaultFood = {
+const defaultFood: foodItemType = {
+  id: -1,
   foodName: "Assorted Pastries",
   restaurantName: "Bella Bakery",
-  imageUrl: "/api/placeholder/300/200",
+  imageUrl: "Pastries.jpg",
   distance: 0.7,
   pickupTime: "Today, 5:00 PM - 6:30 PM",
   tags: ["Vegetarian", "Bakery"],
