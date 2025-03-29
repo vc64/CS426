@@ -1,8 +1,8 @@
-import FoodCard from './FoodCard';
-import './App.css';
+import FoodCard from "./foodCard";
+import "./App.css";
+import AppBanner from "./Banner.tsx";
 
 function App() {
-
   // Mock data for the cards
   const foodItems = [
     {
@@ -13,7 +13,7 @@ function App() {
       pickupTime: "Today, 5:00 PM - 6:30 PM",
       tags: ["Vegetarian", "Bakery"],
       active: true,
-      isFavorite: true
+      isFavorite: true,
     },
     {
       foodName: "Sushi Platter",
@@ -23,7 +23,7 @@ function App() {
       pickupTime: "Today, 8:30 PM - 9:30 PM",
       tags: ["Japanese", "Fish"],
       active: true,
-      isFavorite: true
+      isFavorite: true,
     },
     {
       foodName: "Pizza Combo",
@@ -33,7 +33,7 @@ function App() {
       pickupTime: "Today, 9:00 PM - 10:00 PM",
       tags: ["Italian", "Dairy"],
       active: false,
-      isFavorite: false
+      isFavorite: false,
     },
     {
       foodName: "Salad Box",
@@ -43,28 +43,28 @@ function App() {
       pickupTime: "Tomorrow, 11:30 AM - 1:00 PM",
       tags: ["Vegan", "Organic"],
       active: false,
-      isFavorite: false
-    }
+      isFavorite: false,
+    },
   ];
 
   return (
-    <div className="absolute inset-0 bg-white w-full min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 text-center">Minuteman Meals</h1>
-          <p className="text-gray-600 text-center mt-2">Save food and money by rescuing these meals</p>
-        </header>
-        
-        {/* 
+    <div className="app-wrapper">
+      <AppBanner
+        logoSrc="/src/assets/logo.png"
+        name="Minuteman Meals"
+        desc="Find free food on campus!"
+        profileSrc="/src/assets/profile.png"
+      />
+
+      {/* 
         Method to make this display as a grid - map it into an array of cards.
         When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
         This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
         */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {foodItems.map((item, index) => (
-            <FoodCard key={index} food={item} />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {foodItems.map((item, index) => (
+          <FoodCard key={index} food={item} />
+        ))}
       </div>
     </div>
   );
