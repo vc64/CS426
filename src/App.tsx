@@ -1,6 +1,7 @@
-import FoodCard from "./foodCard";
-import "./App.css";
+import FoodCard from './FoodCard';
 import AppBanner from "./Banner.tsx";
+import { Profile } from './Profile.tsx';
+import './App.css';
 
 function App() {
   // Mock data for the cards
@@ -47,16 +48,23 @@ function App() {
     },
   ];
 
-  return (
-    <div className="app-wrapper">
-      <AppBanner
-        logoSrc="/src/assets/logo.png"
-        name="Minuteman Meals"
-        desc="Find free food on campus!"
-        profileSrc="/src/assets/profile.png"
-      />
 
-      {/* 
+  const defaultProfile = {
+    name: 'John Doe',
+    username: 'johndoe', 
+    isOrg: false,
+    points: 0
+  }
+
+  return (
+    <div className="absolute inset-0 bg-white w-full min-h-screen">
+      <div className="container mx-auto px-4 py-8">
+        <header className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 text-center">Minuteman Meals</h1>
+          <p className="text-gray-600 text-center mt-2">Save food and money by rescuing these meals</p>
+        </header>
+        
+        {/* 
         Method to make this display as a grid - map it into an array of cards.
         When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
         This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
