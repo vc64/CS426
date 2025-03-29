@@ -22,6 +22,10 @@ const AppBanner = ({
   return (
     <header className="app-banner">
       <div className="banner-content">
+        <button>
+          Hello
+        </button>
+
         <div className="logo-container">
           {logoSrc && <img src={logoSrc} alt="Logo" className="app-logo" />}
           <div className="title-container">
