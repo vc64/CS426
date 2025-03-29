@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { Clock, MapPin, Tag, Utensils, Heart, HeartOff } from 'lucide-react';
+import { foodItemType } from './data/foodItems';
 // Found this within lucide-react package, super useful to leverage within our food cards
 const defaultFood = {
   foodName: "Assorted Pastries",
   restaurantName: "Bella Bakery",
   imageUrl: "/api/placeholder/300/200",
-  distance: "0.7 miles away",
+  distance: 0.7,
   pickupTime: "Today, 5:00 PM - 6:30 PM",
   tags: ["Vegetarian", "Bakery"],
   active: true,
@@ -26,11 +26,12 @@ const reserveButtonStyle = {
   
   const handleMouseLeave = (e) => e.target.style.backgroundColor = '#16a34a';
 // Food Card component
-const FoodCard = ({ food = {} }) => {
+const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: number) => void}) => {
     // Allows us to have default values for the card
   const foodData = { ...defaultFood, ...food };
   
   const {
+    id,
     foodName,
     restaurantName,
     imageUrl,
@@ -43,8 +44,7 @@ const FoodCard = ({ food = {} }) => {
 
   // In future, may want to re-render food cards so that those favorited pop up first...
   // So need to take this into account when mapping grid
-  const [favoriteState, setIsFavorite] = useState(isFavorite);
-  const handleFavoriteClick = () => setIsFavorite(!favoriteState);
+  const handleFavoriteClick = (e) => favToggle(id);
 
   return (
     // Used many Tailwind CSS classes to have the styling applied
@@ -60,7 +60,7 @@ const FoodCard = ({ food = {} }) => {
         : (<div className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-sm font-bold">Closed</div>)}
         
         <div className="absolute top-0 left-0 m-2" onClick={handleFavoriteClick}>
-          {favoriteState ? (
+          {isFavorite ? (
             <div className="bg-white p-2 rounded-full shadow-md">
               <Heart size={20} color="#ef4444" fill="#ef4444" />
             </div>
@@ -84,7 +84,7 @@ const FoodCard = ({ food = {} }) => {
         
         <div className="flex items-center mb-3">
           <MapPin size={16} className="text-gray-500 mr-1" />
-          <span className="text-gray-600 text-sm">{distance}</span>
+          <span className="text-gray-600 text-sm">{distance + " miles away"}</span>
         </div>
         
         <div className="flex items-center mb-3">

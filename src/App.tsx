@@ -1,98 +1,54 @@
 import FoodCard from './foodCard';
+import { useState, useEffect } from 'react';
 import FilterButton from './FilterButton';
 import './App.css';
 import { useTag } from './contexts/TagContext.tsx';
 import AppBanner from "./Banner.tsx";
+import { foodItems, foodItemType } from './data/foodItems.ts';
 
 function App() {
 
   // Mock data for the cards
-  const foodItems = [
-    {
-      foodName: "Pepperoni Pizza",
-      restaurantName: "Worcester Dining Commons",
-      imageUrl: "Pizza.jpg",
-      distance: "Worcester Dining Commons, 0.1 miles away",
-      pickupTime: "Today, 5:00 PM - 6:30 PM",
-      tags: ["Italian"],
-      active: true,
-      isFavorite: false
-    },
-    {
-      foodName: "Chocolate Cookies",
-      restaurantName: "UMASO",
-      imageUrl: "Chocolate-Cookies.jpg",
-      distance: "Hasbrouck Laboratories, 0.3 miles away",
-      pickupTime: "Today, 8:30 PM - 9:30 PM",
-      tags: ["Dessert"],
-      active: true,
-      isFavorite: false
-    },
-    {
-      foodName: "Chicken Biryani",
-      restaurantName: "Cooking Club",
-      imageUrl: "Chicken-Biryani.jpg",
-      distance: "Chenoweth Laboratory, 0.5 miles away",
-      pickupTime: "Today, 9:00 PM - 10:00 PM",
-      tags: ["South Asian", "Gluten-Free", "Student-Made"],
-      active: false,
-      isFavorite: false
-    },
-    {
-      foodName: "Garden Salad",
-      restaurantName: "CICS",
-      imageUrl: "Salad.jpg",
-      distance: "Computer Science Building, 1.1 miles away",
-      pickupTime: "Tomorrow, 11:30 AM - 1:00 PM",
-      tags: ["Vegetarian", "Vegan", "Dairy-Free", "Organic"],
-      active: true,
-      isFavorite: false
-    },
-    {
-      foodName: "Dalgona Coffee",
-      restaurantName: "Korean Students Association",
-      imageUrl: "Coffee.jpg",
-      distance: "Student Union, 0.2 miles away",
-      pickupTime: "Tomorrow, 2:00 PM - 3:00 PM",
-      tags: ["Drink", "Vegetarian", "Student-Made"],
-      active: true,
-      isFavorite: false
-    },
-    {
-      foodName: "Assorted Candy",
-      restaurantName: "Positive Presence",
-      imageUrl: "Candy.jpg",
-      distance: "Worcester Dining Commons, 0.1 miles away",
-      pickupTime: "Today, 2:00 PM - 4:00 PM",
-      tags: ["Dessert"],
-      active: false,
-      isFavorite: false
-    },
-    {
-      foodName: "Mac & Cheese",
-      restaurantName: "Harvest Market",
-      imageUrl: "Mac-and-Cheese.jpg",
-      distance: "Harvest Market, 0.1 miles away",
-      pickupTime: "Tomorrow, 11:00 PM - 12:00 AM",
-      tags: ["Vegetarian"],
-      active: true,
-      isFavorite: false
-    },
-    {
-      foodName: "Gluten-Free Brownies",
-      restaurantName: "Yum! Bakery",
-      imageUrl: "Brownies.jpg",
-      distance: "Blue Wall, 0.2 miles away",
-      pickupTime: "Today, 8:00 PM - 9:00 PM",
-      tags: ["Dessert", "Gluten-Free"],
-      active: true,
-      isFavorite: false
-    },
-  ];
+  
 
   // Shows only the cards with the selected tag from the filtering button. Default tag on startup is 'All' which shows all cards.
   const { selectedTag } = useTag();
-  const filteredItems = selectedTag === 'All' ? foodItems : foodItems.filter(item => item.tags.includes(selectedTag));
+
+  const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
+
+  const cardMap = new Map<number, foodItemType>();
+  foodItems.forEach(e => cardMap.set(e.id, e));
+  // We want to separate first into two groups - active or not active
+  // Then order first by favorites, then by distance
+  const sortFood = (arr: foodItemType[]) => {
+    const favorites = arr.filter(e => e.isFavorite);
+    const notFavorites = arr.filter(e => !e.isFavorite);
+    favorites.sort((a, b) => a.distance - b.distance);
+    notFavorites.sort((a, b) => a.distance - b.distance);
+    const sortedCards = favorites.concat(notFavorites);
+    // Need to implement functionality so user can choose this
+    return selectedTag === 'All' ? sortedCards : sortedCards.filter(item => item.tags.includes(selectedTag))
+  }
+
+  // Use useEffect to set initial cards only once
+  useEffect(() => {
+    setFoodCards(sortCards());
+  }, []); // Empty dependency array means this runs only once on mount
+
+  const sortCards = () => {
+    const active = foodItems.filter(e => e.active);
+    const notActive = foodItems.filter(e => !e.active);
+
+    const activeList = sortFood(active);
+    const notActiveList = sortFood(notActive);
+    return activeList.concat(notActiveList);
+  }
+
+  const handleFavChange = (id: number) => {
+    const foodCard = cardMap.get(id);
+    foodCard!.isFavorite = !(foodCard!.isFavorite);
+    setFoodCards(sortCards());
+  }
 
   return (
     <div className="absolute inset-0 bg-white w-full min-h-screen">
@@ -112,8 +68,8 @@ function App() {
         This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
         */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredItems.map((item, index) => (
-            <FoodCard key={index} food={item} />
+          {foodCards.map((item, index) => (
+            <FoodCard key={index} food={item} favToggle={handleFavChange} />
           ))}
         </div>
       </div>
