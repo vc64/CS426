@@ -55,8 +55,21 @@ function App() {
   return (
     <UserProvider>
       <Router>
-        <div className="absolute inset-0 bg-white w-full min-h-screen">
-          <div className="container mx-auto px-4 py-8">
+        <div
+          style={{
+            backgroundColor: "var(--color-palecream)",
+            minHeight: "100vh",
+            width: "100%",
+            margin: 0,
+            padding: 0,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        >
+          <div style={{ width: "100%", margin: 0, padding: 0 }}>
             <Routes>
               <Route
                 path="/"
@@ -68,7 +81,7 @@ function App() {
                       desc="Find free food on campus!"
                       profileSrc="/src/assets/profile.png"
                     />
-                    <div>
+                    <div className="px-4 py-4">
                       <FilterButton />
                     </div>
                     {/* 
@@ -76,7 +89,7 @@ function App() {
         When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
         This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
         */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 pb-8">
                       {foodCards.map((item, index) => (
                         <FoodCard
                           key={index}
