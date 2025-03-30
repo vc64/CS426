@@ -57,34 +57,64 @@ function App() {
   const foodListingContext = useContext(FoodListingContext)!;
 
   return (
-    <div className="absolute inset-0 bg-white w-full min-h-screen">
-      <div className="mx-auto px-4 py-8">
-        <AppBanner
-          logoSrc="/src/assets/logo.png"
-          name="Minuteman Meals"
-          desc="Find free food on campus!"
-          profileSrc="/src/assets/profile.png"
-        />
-        <div>
-          <FilterButton/>
-        </div>
-        {/* 
-        Method to make this display as a grid - map it into an array of cards.
-        When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
-        This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
-        */}
-        <div id="overlay" className={`fixed inset-0 w-full h-full bg-black/[0.65] z-2 ${foodListingContext.isOpen ? "" : "hidden"}`}></div>
-        <div className={`fixed inset-0 w-full h-full flex justify-center items-center z-3 ${foodListingContext.isOpen ? "" : "hidden"}`}>
-          <FoodForm></FoodForm>
-        </div>
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> */}
-        <div className="flex flex-wrap gap-10 justify-center">
-          {foodCards.map((item, index) => (
-            <FoodCard key={index} food={item} favToggle={handleFavChange} />
-          ))}
+    <UserProvider>
+    <Router>
+      <div
+        style={{
+          backgroundColor: "var(--color-palecream)",
+          minHeight: "100vh",
+          width: "100%",
+          margin: 0,
+          padding: 0,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
+      >
+        <div style={{ width: "100%", margin: 0, padding: 0 }}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <AppBanner
+                    logoSrc="/src/assets/logo.png"
+                    name="Minuteman Meals"
+                    desc="Find free food on campus!"
+                    profileSrc="/src/assets/profile.png"
+                  />
+                  <div className="px-4 py-4">
+                    <FilterButton />
+                  </div>
+                  {/* 
+                    Method to make this display as a grid - map it into an array of cards.
+                    When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
+                    This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
+                    */}
+                  <div id="overlay" className={`fixed inset-0 w-full h-full bg-black/[0.65] z-2 ${foodListingContext.isOpen ? "" : "hidden"}`}></div>
+                  <div className={`fixed inset-0 w-full h-full flex justify-center items-center z-3 ${foodListingContext.isOpen ? "" : "hidden"}`}>
+                    <FoodForm></FoodForm>
+                  </div>
+                  <div className="flex flex-wrap gap-5 justify-center items-center">
+                    {foodCards.map((item, index) => (
+                      <FoodCard
+                        key={index}
+                        food={item}
+                        favToggle={handleFavChange}
+                      />
+                    ))}
+                  </div>
+                </>
+              }
+            />
+            <Route path="/profile" element={<UserProfile />} />
+          </Routes>
         </div>
       </div>
-    </div>
+    </Router>
+  </UserProvider>
   );
 }
 

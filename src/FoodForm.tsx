@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { X } from "lucide-react";
+import { FoodListingContext } from "./contexts/FoodListingContext";
 
 const ImageUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -15,7 +17,7 @@ const ImageUpload = () => {
   return (
     <div className="flex flex-col items-center gap-5">
       <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" id="fileInput"/>
-      <label htmlFor="fileInput" className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Select Image</label>
+      <label htmlFor="fileInput" className="cursor-pointer bg-[var(--color-fern)] text-white px-4 py-2 rounded-md hover:bg-[var(--color-fern)] text-xl font-semibold">Select Image</label>
       {preview && <img src={preview} alt="Preview" className="w-40 h-40 object-cover rounded-md" />}
     </div>
   )
@@ -49,6 +51,8 @@ const FoodForm = () => {
       return {...(prevAddress || {street:"", state:"", zip:""}), [field]: value}
     })
   }
+
+  const foodListingContext = useContext(FoodListingContext)!;
 
   return (
     <div className="bg-black rounded-sm bg-white flex justify-center gap-5 flex-col items-left z-10 px-10 py-5 text-black">
@@ -96,20 +100,36 @@ const FoodForm = () => {
         onChange={e => changeAddress("street", e.target.value)} 
         className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
       />
-      <input 
-        type="text"
-        placeholder="state"
-        value={address ? address.state : ""}
-        onChange={e => changeAddress("state", e.target.value)} 
-        className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
-      />
-      <input 
-        type="text"
-        placeholder="zip code"
-        value={address ? address.zip : ""}
-        onChange={e => changeAddress("zip", e.target.value)} 
-        className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
-      />
+      <div className="flex flex-row gap-10 justify-center items-center">
+        <input 
+          type="text"
+          placeholder="state"
+          value={address ? address.state : ""}
+          onChange={e => changeAddress("state", e.target.value)} 
+          className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
+        />
+        <input 
+          type="text"
+          placeholder="zip code"
+          value={address ? address.zip : ""}
+          onChange={e => changeAddress("zip", e.target.value)} 
+          className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
+        />
+      </div>
+      <div className="flex justify-center gap-10">
+        <button
+          onClick={foodListingContext.toggleOpen}
+          className="flex justify-center items-center rounded-full bg-gray-300 hover:bg-gray-400 transition w-20"
+        >
+          <X className="w-5 h-5 text-white-700" />
+        </button>
+        <button
+          onClick={foodListingContext.toggleOpen}
+          className="flex justify-center rounded-full bg-gray-300 hover:bg-gray-400 transition w-50"
+        >
+          <p className="text-xl font-semibold text-white-700">Submit</p>
+        </button>
+      </div>
     </div>
   )
 }
