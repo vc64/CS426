@@ -62,15 +62,15 @@ function App() {
       <div
         style={{
           backgroundColor: "var(--color-palecream)",
-          minHeight: "100vh",
+          // minHeight: "100vh",
           width: "100%",
           margin: 0,
           padding: 0,
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          // position: "absolute",
+          // top: 0,
+          // left: 0,
+          // right: 0,
+          // bottom: 0,
         }}
       >
         <div style={{ width: "100%", margin: 0, padding: 0 }}>
@@ -97,7 +97,7 @@ function App() {
                   <div className={`fixed inset-0 w-full h-full flex justify-center items-center z-3 ${foodListingContext.isOpen ? "" : "hidden"}`}>
                     <FoodForm></FoodForm>
                   </div>
-                  <div className="flex flex-wrap gap-5 justify-center items-center">
+                  <div className="flex flex-wrap gap-5 justify-center items-stretch">
                     {foodCards.map((item, index) => (
                       <FoodCard
                         key={index}
