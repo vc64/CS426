@@ -2,12 +2,18 @@ import { Star, StarHalf, ArrowLeft, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useOrg } from "./contexts/orgContext";
 import OrgFoodCard from "./orgFoodCard";
+import { FoodForm } from './FoodForm.tsx';
+import { FoodListingContext } from './contexts/FoodListingContext';
+import { useContext } from "react";
 
 const OrgProfile = () => {
   const navigate = useNavigate();
   const { org } = useOrg();
 
   const stars = org.totalRatings / org.numRatings;
+
+
+  const foodListingContext = useContext(FoodListingContext)!;
 
   return (
    <div
@@ -108,6 +114,12 @@ const OrgProfile = () => {
             {org.currentLocation}
           </div>
         </div>
+      </div>
+
+      {/* Form for editing food */}
+      <div id="overlay" className={`fixed inset-0 w-full h-full bg-black/[0.65] z-2 ${foodListingContext.isOpen ? "" : "hidden"}`}></div>
+      <div className={`fixed inset-0 w-full h-full flex justify-center items-center z-3 ${foodListingContext.isOpen ? "" : "hidden"}`}>
+        <FoodForm></FoodForm>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">

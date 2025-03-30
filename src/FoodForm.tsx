@@ -25,7 +25,7 @@ const ImageUpload = () => {
   )
 }
 
-const FoodForm = () => {
+const FoodForm =  ({ foodItem }: { foodItem?: foodItemType }) => {
   type Address = {
     street: string;
     state: string;
@@ -56,8 +56,8 @@ const FoodForm = () => {
   }, {} as Record<string, boolean>)
 
   // const [image, setImage] = useState<File | undefined>(undefined);
-  const [food, setFood] = useState("");
-  const [orgName, setOrgName] = useState(""); 
+  const [food, setFood] = useState(foodItem?.foodName || "");
+  const [orgName, setOrgName] = useState(foodItem?.foodName || ""); 
   const [tags, setTags] = useState<Record<string, boolean>>(tagRecord);
   const [times, setTimes] = useState<Times | undefined>(undefined);
   const [address, setAddress] = useState<Address | undefined>(undefined);

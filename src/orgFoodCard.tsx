@@ -1,6 +1,7 @@
 import { Clock, MapPin, Tag, Utensils, Heart, HeartOff } from 'lucide-react';
 import { foodItemType } from './data/foodItems';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { FoodListingContext } from './contexts/FoodListingContext';
 
 const defaultFood = {
    foodName: "Assorted Pastries",
@@ -26,9 +27,6 @@ const reserveButtonStyle = {
   
   const handleMouseLeave = (e) => e.target.style.backgroundColor = '#16a34a';
 
-  const handleClick = (food: foodItemType) => food.active = !food.active;
-
-
 
 // Food Card component
 const OrgFoodCard = ({ food }: {food: foodItemType}) => {
@@ -36,6 +34,7 @@ const OrgFoodCard = ({ food }: {food: foodItemType}) => {
   const foodData = { ...defaultFood, ...food };
   const [showEditPopup, setShowEditPopup] = useState(false);
 
+  const foodListingContext = useContext(FoodListingContext)!;
   
   const {
     id,
@@ -48,6 +47,7 @@ const OrgFoodCard = ({ food }: {food: foodItemType}) => {
     active,
     isFavorite
   } = foodData;
+  
   return (
     // Used many Tailwind CSS classes to have the styling applied
     <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
@@ -90,11 +90,10 @@ const OrgFoodCard = ({ food }: {food: foodItemType}) => {
         style={reserveButtonStyle} 
         onMouseEnter={(e) => handleMouseEnter(e)} 
         onMouseLeave={(e) => handleMouseLeave(e)} 
-        onClick={() => setShowEditPopup(true)}
+        onClick={foodListingContext.toggleOpen}
       >
         Edit
-      </button>
-          {/* Add Form From issue #21 */}
+      </button >
       </div>
     </div>
     </div>
