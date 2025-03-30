@@ -5,7 +5,7 @@ import { foodItemType } from "./data/foodItems";
 import { FoodCardsContext } from "./contexts/FoodCardsContext";
 
 const ImageUpload = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +55,7 @@ const FoodForm = () => {
     return obj;
   }, {} as Record<string, boolean>)
 
-  const [image, setImage] = useState<File | undefined>(undefined);
+  // const [image, setImage] = useState<File | undefined>(undefined);
   const [food, setFood] = useState("");
   const [orgName, setOrgName] = useState(""); 
   const [tags, setTags] = useState<Record<string, boolean>>(tagRecord);

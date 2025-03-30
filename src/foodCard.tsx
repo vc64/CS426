@@ -22,9 +22,9 @@ const reserveButtonStyle = {
     transition: 'background-color 200ms',
   };
 
-  const handleMouseEnter = (e) => e.target.style.backgroundColor = '#15803d';
+  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (e.target as HTMLButtonElement).style.backgroundColor = '#15803d';
   
-  const handleMouseLeave = (e) => e.target.style.backgroundColor = '#16a34a';
+  const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (e.target as HTMLButtonElement).style.backgroundColor = '#16a34a';
 // Food Card component
 const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: number) => void}) => {
     // Allows us to have default values for the card
@@ -44,7 +44,7 @@ const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: n
 
   // In future, may want to re-render food cards so that those favorited pop up first...
   // So need to take this into account when mapping grid
-  const handleFavoriteClick = (e) => favToggle(id);
+  const handleFavoriteClick = () => favToggle(id);
 
   return (
     // Used many Tailwind CSS classes to have the styling applied
