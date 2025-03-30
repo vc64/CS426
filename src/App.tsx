@@ -71,6 +71,7 @@ function App() {
   };
 
   function AppContent() {
+    const foodListingContext = useContext(FoodListingContext)!;
     return (
       <Router>
       <div
