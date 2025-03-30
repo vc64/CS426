@@ -1,80 +1,100 @@
 import FoodCard from './FoodCard';
 import AppBanner from "./Banner.tsx";
 import { Profile } from './Profile.tsx';
-import './App.css';
+import { useState, useEffect } from "react";
+import FilterButton from "./FilterButton";
+import "./App.css";
+import { useTag } from "./contexts/TagContext.tsx";
+import { foodItems, foodItemType } from "./data/foodItems.ts";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import UserProfile from "./userProfile";
+import { UserProvider } from "./contexts/userContext";
 
 function App() {
   // Mock data for the cards
-  const foodItems = [
-    {
-      foodName: "Assorted Pastries",
-      restaurantName: "Bella Bakery",
-      imageUrl: "Pastries.png",
-      distance: "0.7 miles away",
-      pickupTime: "Today, 5:00 PM - 6:30 PM",
-      tags: ["Vegetarian", "Bakery"],
-      active: true,
-      isFavorite: true,
-    },
-    {
-      foodName: "Sushi Platter",
-      restaurantName: "Sakura Japanese",
-      imageUrl: "Sushi.jpg",
-      distance: "1.2 miles away",
-      pickupTime: "Today, 8:30 PM - 9:30 PM",
-      tags: ["Japanese", "Fish"],
-      active: true,
-      isFavorite: true,
-    },
-    {
-      foodName: "Pizza Combo",
-      restaurantName: "Mario's Pizzeria",
-      imageUrl: "Pizza.jpg",
-      distance: "0.5 miles away",
-      pickupTime: "Today, 9:00 PM - 10:00 PM",
-      tags: ["Italian", "Dairy"],
-      active: false,
-      isFavorite: false,
-    },
-    {
-      foodName: "Salad Box",
-      restaurantName: "Green Leaf",
-      imageUrl: "Salad.jpg",
-      distance: "1.8 miles away",
-      pickupTime: "Tomorrow, 11:30 AM - 1:00 PM",
-      tags: ["Vegan", "Organic"],
-      active: false,
-      isFavorite: false,
-    },
-  ];
+  // Shows only the cards with the selected tag from the filtering button. Default tag on startup is 'All' which shows all cards.
+  const { selectedTag } = useTag();
 
+  const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
 
-  const defaultProfile = {
-    name: 'John Doe',
-    username: 'johndoe', 
-    isOrg: false,
-    points: 0
-  }
+  const cardMap = new Map<number, foodItemType>();
+  foodItems.forEach((e) => cardMap.set(e.id, e));
+  // We want to separate first into two groups - active or not active
+  // Then order first by favorites, then by distance
+  const sortFood = (arr: foodItemType[]) => {
+    const favorites = arr.filter((e) => e.isFavorite);
+    const notFavorites = arr.filter((e) => !e.isFavorite);
+    favorites.sort((a, b) => a.distance - b.distance);
+    notFavorites.sort((a, b) => a.distance - b.distance);
+    const sortedCards = favorites.concat(notFavorites);
+    // Need to implement functionality so user can choose this
+    return selectedTag === "All"
+      ? sortedCards
+      : sortedCards.filter((item) => item.tags.includes(selectedTag));
+  };
+
+  // Use useEffect to set initial cards only once
+  useEffect(() => {
+    setFoodCards(sortCards());
+  }, []); // Empty dependency array means this runs only once on mount
+
+  const sortCards = () => {
+    const active = foodItems.filter((e) => e.active);
+    const notActive = foodItems.filter((e) => !e.active);
+
+    const activeList = sortFood(active);
+    const notActiveList = sortFood(notActive);
+    return activeList.concat(notActiveList);
+  };
+
+  const handleFavChange = (id: number) => {
+    const foodCard = cardMap.get(id);
+    foodCard!.isFavorite = !foodCard!.isFavorite;
+    setFoodCards(sortCards());
+  };
 
   return (
-    <div className="absolute inset-0 bg-white w-full min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 text-center">Minuteman Meals</h1>
-          <p className="text-gray-600 text-center mt-2">Save food and money by rescuing these meals</p>
-        </header>
-        
-        {/* 
+    <UserProvider>
+      <Router>
+        <div className="absolute inset-0 bg-white w-full min-h-screen">
+          <div className="container mx-auto px-4 py-8">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <AppBanner
+                      logoSrc="/src/assets/logo.png"
+                      name="Minuteman Meals"
+                      desc="Find free food on campus!"
+                      profileSrc="/src/assets/profile.png"
+                    />
+                    <div>
+                      <FilterButton />
+                    </div>
+                    {/* 
         Method to make this display as a grid - map it into an array of cards.
         When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
         This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
         */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {foodItems.map((item, index) => (
-          <FoodCard key={index} food={item} />
-        ))}
-      </div>
-    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      {foodCards.map((item, index) => (
+                        <FoodCard
+                          key={index}
+                          food={item}
+                          favToggle={handleFavChange}
+                        />
+                      ))}
+                    </div>
+                  </>
+                }
+              />
+              <Route path="/profile" element={<UserProfile />} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 
