@@ -15,7 +15,7 @@ export type OrgProfileType = {
 const defaultOrg: OrgProfileType = {
   username: "umass_dining",
   numRatings: 10,
-  totalRatings: 450,
+  totalRatings: 350,
   isVerified: true,
   listings: foodItems,
   currentLocation: "Worcester Dining Commons",
