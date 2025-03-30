@@ -4,13 +4,16 @@ import './index.css'
 import App from './App.tsx'
 import { TagProvider } from "./contexts/TagContext";
 import { FoodListingProvider } from "./contexts/FoodListingContext";
+import { FoodCardsProvider } from './contexts/FoodCardsContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <FoodListingProvider>
-      <TagProvider>
-        <App />
-      </TagProvider>
-    </FoodListingProvider>
+    <FoodCardsProvider>
+      <FoodListingProvider>
+        <TagProvider>
+          <App />
+        </TagProvider>
+      </FoodListingProvider>
+    </FoodCardsProvider>
   </StrictMode>,
 )

@@ -26,7 +26,7 @@ const AppBanner = ({
     <header className="app-banner">
       <div className="banner-content">
         <button onClick={foodListingContext.toggleOpen}>
-          +
+          New <br></br>Listing
         </button>
 
         <div className="logo-container">
