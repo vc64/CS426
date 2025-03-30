@@ -19,7 +19,7 @@ function App() {
   const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
 
   // Used for setting context to either user or organization.
-  const isOrg = false;
+  const isOrg = true;
 
   const cardMap = new Map<number, foodItemType>();
   foodItems.forEach((e) => cardMap.set(e.id, e));
@@ -106,7 +106,7 @@ function App() {
                   </>
                 }
               />
-              <Route path="/profile" element={<UserProfile />} />
+              <Route path="/profile" element={isOrg ? <OrgProfile/> : <UserProfile/>} />
             </Routes>
           </div>
         </div>
