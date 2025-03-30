@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { X } from "lucide-react";
 import { FoodListingContext } from "./contexts/FoodListingContext";
 import { foodItemType } from "./data/foodItems";
@@ -74,8 +74,16 @@ const FoodForm = () => {
     })
   }
 
-  const foodListingContext = useContext(FoodListingContext)!;
-  const foodCardsContext = useContext(FoodCardsContext)!;
+  const { isOpen, toggleOpen } = useContext(FoodListingContext)!;
+  const { addCard } = useContext(FoodCardsContext)!;
+
+  useEffect(() => {
+    setFood("");
+    setOrgName("");
+    setTags(tagRecord);
+    setTimes(undefined);
+    setAddress(undefined);
+  }, [isOpen]);
 
   const onSubmit = () => {
     const newFood: foodItemType = {
@@ -89,8 +97,8 @@ const FoodForm = () => {
       active: true,
       isFavorite: false
     }
-    foodCardsContext.addCard(newFood);
-    foodListingContext.toggleOpen();
+    addCard(newFood);
+    toggleOpen();
   }
 
   return (
@@ -152,11 +160,13 @@ const FoodForm = () => {
         onChange={e => setTags({...tags, [e.target.value]:!tags[e.target.value]})}
         className="block w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        {possibleTags.map((tag, idx) => (
-          <option key={idx} value={tag}>
-            {tag}
-          </option>
-        ))}
+        {possibleTags.map((tag, idx) => 
+          (
+            <option key={idx} value={tag}>
+              {tag}
+            </option>
+          )
+        )}
       </select>
       <p className="text-xl font-semibold">Where to pick up?</p>
       <input 
@@ -184,7 +194,7 @@ const FoodForm = () => {
       </div>
       <div className="flex justify-center gap-10">
         <button
-          onClick={foodListingContext.toggleOpen}
+          onClick={toggleOpen}
           className="flex justify-center items-center rounded-full bg-gray-300 hover:bg-gray-400 transition w-20"
         >
           <X className="w-5 h-5 text-white-700" />
