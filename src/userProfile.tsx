@@ -16,6 +16,7 @@ const UserProfile = () => {
         backgroundColor: "var(--color-cream)",
         minHeight: "100vh",
         padding: "20px",
+        width: "100vw"
       }}
     >
       {" "}
