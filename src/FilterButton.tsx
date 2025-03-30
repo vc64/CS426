@@ -6,7 +6,7 @@ const buttonStyle = {
   fontWeight: "600",
   padding: "0.5rem 1rem",
   borderRadius: "0.5rem",
-  width: "5rem",
+  width: "6rem",
   fontFamily: "Inter, sans-serif",
 };
 
