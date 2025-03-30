@@ -100,6 +100,7 @@ function App() {
                     name="Minuteman Meals"
                     desc="Find free food on campus!"
                     profileSrc="/src/assets/profile.png"
+                    isOrg={isOrg}
                   />
                   <div className="px-4 py-4">
                     <FilterButton />
