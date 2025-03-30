@@ -2,15 +2,16 @@ import FoodCard from "./foodCard";
 import { useEffect, useContext } from "react";
 import FilterButton from "./FilterButton";
 import "./App.css";
-import { useTag } from "./contexts/TagContext.tsx";
+// import { useTag } from "./contexts/TagContext.tsx";
 import AppBanner from "./Banner.tsx";
-import { foodItems, foodItemType } from "./data/foodItems.ts";
+import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from "./userProfile";
 import { UserProvider } from "./contexts/userContext";
 import { FoodForm } from './FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
+import { useTag } from "./contexts/TagContext.tsx";
 
 function App() {
   // Mock data for the cards
@@ -18,10 +19,11 @@ function App() {
   const { selectedTag } = useTag();
 
   // const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
-  const foodCardsContext = useContext(FoodCardsContext)!;
+  const { foodCards, allFoodItems, setFoodCards } = useContext(FoodCardsContext)!;
 
   const cardMap = new Map<number, foodItemType>();
-  foodItems.forEach((e) => cardMap.set(e.id, e));
+  // foodItems.forEach((e) => cardMap.set(e.id, e));
+  foodCards.forEach((e) => cardMap.set(e.id, e));
   // We want to separate first into two groups - active or not active
   // Then order first by favorites, then by distance
   const sortFood = (arr: foodItemType[]) => {
@@ -38,22 +40,30 @@ function App() {
 
   // Use useEffect to set initial cards only once
   useEffect(() => {
-    foodCardsContext.setFoodCards(sortCards());
+    setFoodCards(sortCards());
   }, []); // Empty dependency array means this runs only once on mount
 
-  const sortCards = () => {
-    const active = foodItems.filter((e) => e.active);
-    const notActive = foodItems.filter((e) => !e.active);
+  // update food cards whenever selectedTag changes
+  useEffect(() => {
+    console.log(selectedTag);
+    setFoodCards(sortCards());
+  }, [selectedTag, allFoodItems]);
 
+  const sortCards = () => {
+    // const active = foodItems.filter((e) => e.active);
+    // const notActive = foodItems.filter((e) => !e.active);
+    const active = allFoodItems.filter((e) => e.active);
+    const notActive = allFoodItems.filter((e) => !e.active);
     const activeList = sortFood(active);
     const notActiveList = sortFood(notActive);
     return activeList.concat(notActiveList);
   };
 
   const handleFavChange = (id: number) => {
-    const foodCard = cardMap.get(id);
+    // const foodCard = cardMap.get(id);
+    const foodCard = foodCards.find(item => item.id === id);
     foodCard!.isFavorite = !foodCard!.isFavorite;
-    foodCardsContext.setFoodCards(sortCards());
+    setFoodCards(sortCards());
   };
 
   const foodListingContext = useContext(FoodListingContext)!;
@@ -68,9 +78,9 @@ function App() {
           width: "100%",
           margin: 0,
           padding: 0,
-          // position: "absolute",
-          // top: 0,
-          // left: 0,
+          position: "absolute",
+          top: 0,
+          left: 0,
           // right: 0,
           // bottom: 0,
         }}
@@ -100,13 +110,14 @@ function App() {
                     <FoodForm></FoodForm>
                   </div>
                   <div className="flex flex-wrap gap-5 justify-center items-stretch">
-                    {foodCardsContext.foodCards.map((item, index) => (
+                    {foodCards.map((item, index) => {
+                      return (
                       <FoodCard
                         key={index}
                         food={item}
                         favToggle={handleFavChange}
                       />
-                    ))}
+                    )})}
                   </div>
                 </>
               }
