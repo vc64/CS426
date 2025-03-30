@@ -1,6 +1,5 @@
 import FoodCard from './FoodCard';
 import AppBanner from "./Banner.tsx";
-import { Profile } from './Profile.tsx';
 import { useState, useEffect } from "react";
 import FilterButton from "./FilterButton";
 import "./App.css";
@@ -9,6 +8,8 @@ import { foodItems, foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from "./userProfile";
 import { UserProvider } from "./contexts/userContext";
+import OrgProfile from './OrgProfile.tsx';
+import { OrgProvider } from './contexts/orgContext.tsx';
 
 function App() {
   // Mock data for the cards
@@ -16,6 +17,9 @@ function App() {
   const { selectedTag } = useTag();
 
   const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
+
+  // Used for setting context to either user or organization.
+  const isOrg = true;
 
   const cardMap = new Map<number, foodItemType>();
   foodItems.forEach((e) => cardMap.set(e.id, e));
@@ -53,48 +57,62 @@ function App() {
     setFoodCards(sortCards());
   };
 
-  return (
-    <UserProvider>
+  function AppContent() {
+    return (
       <Router>
-        <div className="absolute inset-0 bg-white w-full min-h-screen">
-          <div className="container mx-auto px-4 py-8">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <AppBanner
-                      logoSrc="/src/assets/logo.png"
-                      name="Minuteman Meals"
-                      desc="Find free food on campus!"
-                      profileSrc="/src/assets/profile.png"
-                    />
-                    <div>
-                      <FilterButton />
-                    </div>
-                    {/* 
-        Method to make this display as a grid - map it into an array of cards.
-        When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
-        This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
-        */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                      {foodCards.map((item, index) => (
-                        <FoodCard
-                          key={index}
-                          food={item}
-                          favToggle={handleFavChange}
-                        />
-                      ))}
-                    </div>
-                  </>
-                }
-              />
-              <Route path="/profile" element={<UserProfile />} />
-            </Routes>
-          </div>
+      <div className="absolute inset-0 bg-white w-full min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <AppBanner
+                    logoSrc="/src/assets/logo.png"
+                    name="Minuteman Meals"
+                    desc="Find free food on campus!"
+                    profileSrc="/src/assets/profile.png"
+                  />
+                  <div>
+                    <FilterButton />
+                  </div>
+                  {/* 
+      Method to make this display as a grid - map it into an array of cards.
+      When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
+      This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
+      */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {foodCards.map((item, index) => (
+                      <FoodCard
+                        key={index}
+                        food={item}
+                        favToggle={handleFavChange}
+                      />
+                    ))}
+                  </div>
+                </>
+              }
+            />
+            <Route path="/profile" element={isOrg ? <OrgProfile/> : <UserProfile/>} />
+          </Routes>
         </div>
-      </Router>
-    </UserProvider>
+      </div>
+    </Router>
+    )
+  }
+
+  return (
+    <div>
+      {isOrg ? (
+        <OrgProvider>
+          <AppContent />
+        </OrgProvider>
+      ) : (
+        <UserProvider>
+          <AppContent />
+        </UserProvider>
+      )}
+    </div>
   );
 }
 
