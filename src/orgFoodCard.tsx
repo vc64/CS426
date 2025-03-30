@@ -1,5 +1,6 @@
 import { Clock, MapPin, Tag, Utensils, Heart, HeartOff } from 'lucide-react';
 import { foodItemType } from './data/foodItems';
+import { useState } from 'react';
 
 const defaultFood = {
    foodName: "Assorted Pastries",
@@ -28,10 +29,13 @@ const reserveButtonStyle = {
   const handleClick = (food: foodItemType) => food.active = !food.active;
 
 
+
 // Food Card component
 const OrgFoodCard = ({ food }: {food: foodItemType}) => {
     // Allows us to have default values for the card
   const foodData = { ...defaultFood, ...food };
+  const [showEditPopup, setShowEditPopup] = useState(false);
+
   
   const {
     id,
@@ -82,7 +86,15 @@ const OrgFoodCard = ({ food }: {food: foodItemType}) => {
           ))}
         </div>
         
-        <button style={reserveButtonStyle} onMouseEnter={(e) => handleMouseEnter(e)} onMouseLeave={(e) => handleMouseLeave(e)} onClick={() => handleClick(foodData)}>Edit</button>
+      <button 
+        style={reserveButtonStyle} 
+        onMouseEnter={(e) => handleMouseEnter(e)} 
+        onMouseLeave={(e) => handleMouseLeave(e)} 
+        onClick={() => setShowEditPopup(true)}
+      >
+        Edit
+      </button>
+          {/* Add Form From issue #21 */}
       </div>
     </div>
     </div>
