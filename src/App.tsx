@@ -1,5 +1,5 @@
 import FoodCard from "./foodCard";
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import FilterButton from "./FilterButton";
 import "./App.css";
 import AppBanner from "./Banner.tsx";
@@ -13,6 +13,7 @@ import { FoodForm } from './FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
 import { useTag } from "./contexts/TagContext.tsx";
+import ToggleSwitch from "./Toggle.tsx";
 
 function App() {
   // Mock data for the cards
@@ -23,7 +24,7 @@ function App() {
   const { foodCards, allFoodItems, setFoodCards } = useContext(FoodCardsContext)!;
 
   // Used for setting context to either user or organization.
-  const isOrg = true;
+  const [isOrg, setIsOrg] = useState(false);
 
   const cardMap = new Map<number, foodItemType>();
   // foodItems.forEach((e) => cardMap.set(e.id, e));
@@ -102,6 +103,7 @@ function App() {
                   />
                   <div className="px-4 py-4">
                     <FilterButton />
+                    <ToggleSwitch value={isOrg} onToggle={setIsOrg} onLabel="Org" offLabel="User" />
                   </div>
                   {/* 
                     Method to make this display as a grid - map it into an array of cards.
