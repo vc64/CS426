@@ -64,70 +64,33 @@ const OrgProfile = () => {
             )}
           </div>
 
-          {/* Points display - green button */}
-          <div className="bg-green-800 text-white font-bold rounded-lg px-8 py-3 mb-8 text-xl inline-block">
-            300 points
-          </div>
-
           <div className="flex space-x-2">
-          {[...Array(5)].map((_, index) => {
-            const starValue = index + 1;
-            return (
-               <Star
-                  key={index}
-                  size={32}
-                  className={`transition-colors ${
-                     starValue <= Math.floor(stars)
-                        ? "text-yellow-400"
-                        : starValue - 0.5 <= stars
-                        ? "text-yellow-200"
-                        : "text-gray-400"
-                  }`}
-               />
-            );
-         })}
+            <div className="relative">
+               <div className="flex gap-1">
+               { Array.from({ length: 5 }, () => (
+                  <Star fill="#111" strokeWidth={0} />
+               ))}
+               </div>
+               <div className="absolute top-0 flex space-x-1">
+                  {[...Array(Math.ceil(stars))].map((_, index) => {
+                     const starValue = index + 1;
+                     return starValue === Math.ceil(stars) ? (
+                     <StarHalf
+                        className="text-yellow-400"
+                        fill="currentColor"
+                     />
+                     ) : (
+                     <Star
+                        className="text-yellow-400"
+                        fill="currentColor"
+                     />
+                     );
+                  })}
+               </div>
+            </div>
          </div>
         </div>
 
-         {/* Add Listing - light green background */}
-         <div className="bg-green-100 p-6 rounded-lg mb-6">
-           <h3 className="text-xl font-bold mb-4 text-center text-gray-700">
-             New Listing
-           </h3>
-           <form
-             onSubmit={(e) => {
-               e.preventDefault();
-               const formData = new FormData(e.target as HTMLFormElement);
-               const newFood = formData.get("foodItem") as string;
-               if (newFood.trim()) {
-            org.listings.push(newFood); // Update the org context
-               }
-               e.target.reset();
-             }}
-             className="flex flex-col items-center"
-           >
-             <input
-               type="text"
-               name="foodItem"
-               placeholder="Enter food item"
-               className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full"
-               required
-             />
-              <input
-               type="text"
-               name="foodItem"
-               placeholder="Enter food item"
-               className="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-full"
-               required
-             />
-             <button
-               type="submit"
-               className="bg-green-800 text-white font-bold rounded-lg px-6 py-2"
-             >
-               Add Food
-             </button>
-           </form>
-         </div>
 
         {/* Current location section - dark green background */}
         <div className="bg-green-800 text-white p-6 rounded-lg">
@@ -140,14 +103,16 @@ const OrgProfile = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {org.listings.map((item, index) => (
-               <OrgFoodCard
-               key={index}
-               food={item}
-               />
-            ))}
-         </div>
+
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+         {org.listings.map((item, index) => (
+            <OrgFoodCard
+            key={index}
+            food={item}
+            />
+         ))}
       </div>
     </div>
   );
