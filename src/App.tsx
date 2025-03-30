@@ -1,23 +1,29 @@
 import FoodCard from "./foodCard";
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import FilterButton from "./FilterButton";
 import "./App.css";
-import { useTag } from "./contexts/TagContext.tsx";
+// import { useTag } from "./contexts/TagContext.tsx";
 import AppBanner from "./Banner.tsx";
-import { foodItems, foodItemType } from "./data/foodItems.ts";
+import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from "./userProfile";
 import { UserProvider } from "./contexts/userContext";
+import { FoodForm } from './FoodForm.tsx';
+import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
+import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
+import { useTag } from "./contexts/TagContext.tsx";
 
 function App() {
   // Mock data for the cards
   // Shows only the cards with the selected tag from the filtering button. Default tag on startup is 'All' which shows all cards.
   const { selectedTag } = useTag();
 
-  const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
+  // const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
+  const { foodCards, allFoodItems, setFoodCards } = useContext(FoodCardsContext)!;
 
   const cardMap = new Map<number, foodItemType>();
-  foodItems.forEach((e) => cardMap.set(e.id, e));
+  // foodItems.forEach((e) => cardMap.set(e.id, e));
+  foodCards.forEach((e) => cardMap.set(e.id, e));
   // We want to separate first into two groups - active or not active
   // Then order first by favorites, then by distance
   const sortFood = (arr: foodItemType[]) => {
@@ -37,76 +43,91 @@ function App() {
     setFoodCards(sortCards());
   }, []); // Empty dependency array means this runs only once on mount
 
-  const sortCards = () => {
-    const active = foodItems.filter((e) => e.active);
-    const notActive = foodItems.filter((e) => !e.active);
+  // update food cards whenever selectedTag changes
+  useEffect(() => {
+    console.log(selectedTag);
+    setFoodCards(sortCards());
+  }, [selectedTag, allFoodItems]);
 
+  const sortCards = () => {
+    // const active = foodItems.filter((e) => e.active);
+    // const notActive = foodItems.filter((e) => !e.active);
+    const active = allFoodItems.filter((e) => e.active);
+    const notActive = allFoodItems.filter((e) => !e.active);
     const activeList = sortFood(active);
     const notActiveList = sortFood(notActive);
     return activeList.concat(notActiveList);
   };
 
   const handleFavChange = (id: number) => {
-    const foodCard = cardMap.get(id);
+    // const foodCard = cardMap.get(id);
+    const foodCard = foodCards.find(item => item.id === id);
     foodCard!.isFavorite = !foodCard!.isFavorite;
     setFoodCards(sortCards());
   };
 
+  const foodListingContext = useContext(FoodListingContext)!;
+
   return (
     <UserProvider>
-      <Router>
-        <div
-          style={{
-            backgroundColor: "var(--color-palecream)",
-            minHeight: "100vh",
-            width: "100%",
-            margin: 0,
-            padding: 0,
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        >
-          <div style={{ width: "100%", margin: 0, padding: 0 }}>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <AppBanner
-                      logoSrc="/src/assets/logo.png"
-                      name="Minuteman Meals"
-                      desc="Find free food on campus!"
-                      profileSrc="/src/assets/profile.png"
-                    />
-                    <div className="px-4 py-4">
-                      <FilterButton />
-                    </div>
-                    {/* 
-        Method to make this display as a grid - map it into an array of cards.
-        When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
-        This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
-        */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 pb-8">
-                      {foodCards.map((item, index) => (
-                        <FoodCard
-                          key={index}
-                          food={item}
-                          favToggle={handleFavChange}
-                        />
-                      ))}
-                    </div>
-                  </>
-                }
-              />
-              <Route path="/profile" element={<UserProfile />} />
-            </Routes>
-          </div>
+    <Router>
+      <div
+        style={{
+          backgroundColor: "var(--color-palecream)",
+          // minHeight: "100vh",
+          width: "100%",
+          margin: 0,
+          padding: 0,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          // right: 0,
+          // bottom: 0,
+        }}
+      >
+        <div style={{ width: "100%", margin: 0, padding: 0 }}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <AppBanner
+                    logoSrc="/src/assets/logo.png"
+                    name="Minuteman Meals"
+                    desc="Find free food on campus!"
+                    profileSrc="/src/assets/profile.png"
+                  />
+                  <div className="px-4 py-4">
+                    <FilterButton />
+                  </div>
+                  {/* 
+                    Method to make this display as a grid - map it into an array of cards.
+                    When it comes to the homepage, have an array of all the food listings, and then sort the array based on the appropriate filters
+                    This way, we can just map them to easily put them into a grid - we need to implement this into an actual homepage
+                    */}
+                  <div id="overlay" className={`fixed inset-0 w-full h-full bg-black/[0.65] z-2 ${foodListingContext.isOpen ? "" : "hidden"}`}></div>
+                  <div className={`fixed inset-0 w-full h-full flex justify-center items-center z-3 ${foodListingContext.isOpen ? "" : "hidden"}`}>
+                    <FoodForm></FoodForm>
+                  </div>
+                  <div className="flex flex-wrap gap-5 justify-center items-stretch">
+                    {foodCards.map((item, index) => {
+                      return (
+                      <FoodCard
+                        key={index}
+                        food={item}
+                        favToggle={handleFavChange}
+                      />
+                    )})}
+                  </div>
+                </>
+              }
+            />
+            <Route path="/profile" element={<UserProfile />} />
+          </Routes>
         </div>
-      </Router>
-    </UserProvider>
+      </div>
+    </Router>
+  </UserProvider>
   );
 }
 

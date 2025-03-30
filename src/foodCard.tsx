@@ -22,9 +22,9 @@ const reserveButtonStyle = {
     transition: 'background-color 200ms',
   };
 
-  const handleMouseEnter = (e) => e.target.style.backgroundColor = '#15803d';
+  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (e.target as HTMLButtonElement).style.backgroundColor = '#15803d';
   
-  const handleMouseLeave = (e) => e.target.style.backgroundColor = '#16a34a';
+  const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (e.target as HTMLButtonElement).style.backgroundColor = '#16a34a';
 // Food Card component
 const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: number) => void}) => {
     // Allows us to have default values for the card
@@ -44,15 +44,15 @@ const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: n
 
   // In future, may want to re-render food cards so that those favorited pop up first...
   // So need to take this into account when mapping grid
-  const handleFavoriteClick = (e) => favToggle(id);
+  const handleFavoriteClick = () => favToggle(id);
 
   return (
     // Used many Tailwind CSS classes to have the styling applied
-    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 w-[350px]">
       <div className="relative">
         <img 
           src={"/src/assets/" + imageUrl} 
-          alt={foodName} 
+          alt={foodName}
           className="w-full h-48 object-cover"
         />
         {active ? 

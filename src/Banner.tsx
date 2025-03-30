@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Banner.css";
+import { useContext } from "react";
+import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 
 type BannerProps = {
   logoSrc: string;
@@ -19,9 +21,14 @@ const AppBanner = ({
   const handleProfileClick = () => {
     navigate("/profile");
   };
+  const foodListingContext = useContext(FoodListingContext)!;
   return (
     <header className="app-banner">
       <div className="banner-content">
+        <button onClick={foodListingContext.toggleOpen}>
+          New <br></br>Listing
+        </button>
+
         <div className="logo-container">
           {logoSrc && <img src={logoSrc} alt="Logo" className="app-logo" />}
           <div className="title-container">
