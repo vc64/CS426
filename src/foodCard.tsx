@@ -52,7 +52,7 @@ const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: n
       <div className="relative">
         <img 
           src={"/src/assets/" + imageUrl} 
-          alt={foodName} 
+          alt={foodName}
           className="w-full h-48 object-cover"
         />
         {active ? 
