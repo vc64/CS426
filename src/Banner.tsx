@@ -2,12 +2,14 @@ import { useNavigate } from "react-router-dom";
 import "./Banner.css";
 import { useContext } from "react";
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
+import { Space } from "lucide-react";
 
 type BannerProps = {
   logoSrc: string;
   name: string;
   desc: string;
   profileSrc: string;
+  isOrg: boolean
 };
 
 const AppBanner = ({
@@ -15,6 +17,7 @@ const AppBanner = ({
   name = "Minuteman Meals",
   desc = "Find free food on campus",
   profileSrc = "/src/assets/profile.png",
+  isOrg
 }: BannerProps) => {
   const navigate = useNavigate();
 
@@ -25,11 +28,12 @@ const AppBanner = ({
   return (
     <header className="app-banner">
       <div className="banner-content">
-        <button onClick={foodListingContext.toggleOpen}>
+        {isOrg && <button onClick={foodListingContext.toggleOpen}>
           New <br></br>Listing
-        </button>
+        </button>}
+        {!isOrg && <div></div>}
 
-        <div className="logo-container">
+        <div className="logo-container justify-center">
           {logoSrc && <img src={logoSrc} alt="Logo" className="app-logo" />}
           <div className="title-container">
             <h1 className="app-title">{name}</h1>

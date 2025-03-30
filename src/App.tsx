@@ -1,17 +1,19 @@
 import FoodCard from "./foodCard";
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import FilterButton from "./FilterButton";
 import "./App.css";
-// import { useTag } from "./contexts/TagContext.tsx";
 import AppBanner from "./Banner.tsx";
 import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from "./userProfile";
 import { UserProvider } from "./contexts/userContext";
+import OrgProfile from './OrgProfile.tsx';
+import { OrgProvider } from './contexts/orgContext.tsx';
 import { FoodForm } from './FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
 import { useTag } from "./contexts/TagContext.tsx";
+import ToggleSwitch from "./Toggle.tsx";
 
 function App() {
   // Mock data for the cards
@@ -20,6 +22,9 @@ function App() {
 
   // const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
   const { foodCards, allFoodItems, setFoodCards } = useContext(FoodCardsContext)!;
+
+  // Used for setting context to either user or organization.
+  const [isOrg, setIsOrg] = useState(false);
 
   const cardMap = new Map<number, foodItemType>();
   // foodItems.forEach((e) => cardMap.set(e.id, e));
@@ -66,11 +71,10 @@ function App() {
     setFoodCards(sortCards());
   };
 
-  const foodListingContext = useContext(FoodListingContext)!;
-
-  return (
-    <UserProvider>
-    <Router>
+  function AppContent() {
+    const foodListingContext = useContext(FoodListingContext)!;
+    return (
+      <Router>
       <div
         style={{
           backgroundColor: "var(--color-palecream)",
@@ -96,9 +100,11 @@ function App() {
                     name="Minuteman Meals"
                     desc="Find free food on campus!"
                     profileSrc="/src/assets/profile.png"
+                    isOrg={isOrg}
                   />
                   <div className="px-4 py-4">
                     <FilterButton />
+                    <ToggleSwitch value={isOrg} onToggle={setIsOrg} onLabel="Org" offLabel="User" />
                   </div>
                   {/* 
                     Method to make this display as a grid - map it into an array of cards.
@@ -122,12 +128,26 @@ function App() {
                 </>
               }
             />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile" element={isOrg ? <OrgProfile/> : <UserProfile/>} />
           </Routes>
         </div>
       </div>
     </Router>
-  </UserProvider>
+    )
+  }
+
+  return (
+    <div>
+      {isOrg ? (
+        <OrgProvider>
+          <AppContent />
+        </OrgProvider>
+      ) : (
+        <UserProvider>
+          <AppContent />
+        </UserProvider>
+      )}
+    </div>
   );
 }
 
