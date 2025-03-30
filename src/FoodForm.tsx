@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { X } from "lucide-react";
 import { FoodListingContext } from "./contexts/FoodListingContext";
+import { foodItemType } from "./data/foodItems";
+import { FoodCardsContext } from "./contexts/FoodCardsContext";
 
 const ImageUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -31,18 +33,38 @@ const FoodForm = () => {
   }
 
   type Times = {
+    date: string;
     start: string;
     end: string;
   }
 
+  const possibleTags = [
+    "All",
+    "Italian",
+    "South Asian",
+    "Vegetarian",
+    "Vegan",
+    "Dairy-Free",
+    "Gluten-Free",
+    "Student-Made",
+    "Dessert",
+    "Organic"
+  ];
+  const tagRecord = possibleTags.reduce((obj, e) => {
+    obj[e] = false;
+    return obj;
+  }, {} as Record<string, boolean>)
+
   const [image, setImage] = useState<File | undefined>(undefined);
   const [food, setFood] = useState("");
+  const [orgName, setOrgName] = useState(""); 
+  const [tags, setTags] = useState<Record<string, boolean>>(tagRecord);
   const [times, setTimes] = useState<Times | undefined>(undefined);
   const [address, setAddress] = useState<Address | undefined>(undefined);
 
-  const changeTimes = (field: "start" | "end", value: string) => {
+  const changeTimes = (field: "date" | "start" | "end", value: string) => {
     setTimes(prevTimes => {
-      return {...(prevTimes || {start:"", end:""}), [field]: value};
+      return {...(prevTimes || {date: "", start:"", end:""}), [field]: value};
     })
   }
 
@@ -53,24 +75,50 @@ const FoodForm = () => {
   }
 
   const foodListingContext = useContext(FoodListingContext)!;
+  const foodCardsContext = useContext(FoodCardsContext)!;
+
+  const onSubmit = () => {
+    const newFood: foodItemType = {
+      id: 0,
+      foodName: food,
+      restaurantName: orgName,
+      imageUrl: "Pizza.jpg",
+      distance: 0,
+      pickupTime: `${times ? times.date : ""}, ${times ? times.start : ""} - ${times ? times.end : ""}`,
+      tags: Object.entries(tags).filter(([,v]) => v).map(([k,]) => k),
+      active: true,
+      isFavorite: false
+    }
+    foodCardsContext.addCard(newFood);
+    foodListingContext.toggleOpen();
+  }
 
   return (
-    <div className="bg-black rounded-sm bg-white flex justify-center gap-5 flex-col items-left z-10 px-10 py-5 text-black">
-      <h2 className="text-3xl font-bold text-gray-800 pb-3">Add a Food Listing</h2>
+    <div className="bg-black rounded-[15px] bg-white flex justify-center gap-5 flex-col items-left z-10 px-10 py-5 text-black">
+      <h2 className="text-4xl font-bold text-gray-800 py-3">Add a Food Listing</h2>
       <ImageUpload />
-      <input 
-        type="text"
-        placeholder="Name of food"
-        value={food}
-        onChange={e => setFood(e.target.value)} 
-        className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
-      />
+      <div className="flex flex-row items-center gap-5">
+        <input 
+          type="text"
+          placeholder="Name of food"
+          value={food}
+          onChange={e => setFood(e.target.value)} 
+          className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
+        />
+        <input 
+          type="text"
+          placeholder="Your organization's name"
+          value={orgName}
+          onChange={e => setOrgName(e.target.value)} 
+          className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
+        />
+      </div>
       <div className="flex flex-row items-center gap-5">
         <p className="text-xl font-semibold">Date: </p>
         <input
           type="date"
-          value={times ? times.start : ""}
-          onChange={e => changeTimes("start", e.target.value)} 
+          value={times ? times.date : ""}
+          onChange={e => changeTimes("date", e.target.value)} 
           className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
         />
       </div>
@@ -82,8 +130,8 @@ const FoodForm = () => {
           onChange={e => changeTimes("start", e.target.value)} 
           className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
         />
-      </div>
-      <div className="flex flex-row items-center gap-5">
+      {/* </div>
+      <div className="flex flex-row items-center gap-5"> */}
         <p className="text-xl font-semibold">End: </p>
         <input 
           type="time"
@@ -92,6 +140,24 @@ const FoodForm = () => {
           className="w-full p-2 border rounded-md border-black border-2 text-black text-xl"
         />
       </div>
+      <div className="flex flex-row gap-5">
+        <p className="text-xl font-semibold text-black">Tags: </p>
+        {Object.entries(tags)
+          .filter(([,value]) => value)
+          .map(([tag,]) => (
+            <p key={tag} className="text-xl text-black">{tag}</p>
+        ))}
+      </div>
+      <select
+        onChange={e => setTags({...tags, [e.target.value]:!tags[e.target.value]})}
+        className="block w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        {possibleTags.map((tag, idx) => (
+          <option key={idx} value={tag}>
+            {tag}
+          </option>
+        ))}
+      </select>
       <p className="text-xl font-semibold">Where to pick up?</p>
       <input 
         type="text"
@@ -124,7 +190,7 @@ const FoodForm = () => {
           <X className="w-5 h-5 text-white-700" />
         </button>
         <button
-          onClick={foodListingContext.toggleOpen}
+          onClick={onSubmit}
           className="flex justify-center rounded-full bg-gray-300 hover:bg-gray-400 transition w-50"
         >
           <p className="text-xl font-semibold text-white-700">Submit</p>

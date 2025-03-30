@@ -1,5 +1,5 @@
 import FoodCard from "./foodCard";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import FilterButton from "./FilterButton";
 import "./App.css";
 import { useTag } from "./contexts/TagContext.tsx";
@@ -10,13 +10,15 @@ import UserProfile from "./userProfile";
 import { UserProvider } from "./contexts/userContext";
 import { FoodForm } from './FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
+import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
 
 function App() {
   // Mock data for the cards
   // Shows only the cards with the selected tag from the filtering button. Default tag on startup is 'All' which shows all cards.
   const { selectedTag } = useTag();
 
-  const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
+  // const [foodCards, setFoodCards] = useState<foodItemType[]>([]);
+  const foodCardsContext = useContext(FoodCardsContext)!;
 
   const cardMap = new Map<number, foodItemType>();
   foodItems.forEach((e) => cardMap.set(e.id, e));
@@ -36,7 +38,7 @@ function App() {
 
   // Use useEffect to set initial cards only once
   useEffect(() => {
-    setFoodCards(sortCards());
+    foodCardsContext.setFoodCards(sortCards());
   }, []); // Empty dependency array means this runs only once on mount
 
   const sortCards = () => {
@@ -51,7 +53,7 @@ function App() {
   const handleFavChange = (id: number) => {
     const foodCard = cardMap.get(id);
     foodCard!.isFavorite = !foodCard!.isFavorite;
-    setFoodCards(sortCards());
+    foodCardsContext.setFoodCards(sortCards());
   };
 
   const foodListingContext = useContext(FoodListingContext)!;
@@ -98,7 +100,7 @@ function App() {
                     <FoodForm></FoodForm>
                   </div>
                   <div className="flex flex-wrap gap-5 justify-center items-stretch">
-                    {foodCards.map((item, index) => (
+                    {foodCardsContext.foodCards.map((item, index) => (
                       <FoodCard
                         key={index}
                         food={item}
