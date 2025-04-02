@@ -10,3 +10,6 @@ Food waste across campus is a persistent problem. We aim to build a platform tha
 
 **Setup Instructions:** \
 To be expanded in the future.
+
+**Style Document:** \
+https://docs.google.com/document/d/1cRfobiRAtCNJh2LlAtl2kgKljoLDo22qnYP6dxLiejo/edit?usp=sharing
