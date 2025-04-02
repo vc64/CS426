@@ -100,9 +100,13 @@ function App() {
                     profileSrc="/src/assets/profile.png"
                     isOrg={isOrg}
                   />
-                  <div className="px-4 py-4">
-                    <FilterButton />
-                    <ToggleSwitch value={isOrg} onToggle={setIsOrg} onLabel="Org" offLabel="User" />
+                  <div className="px-4 py-4 relative flex items-center w-full">
+                    <div className="absolute left-10">
+                      <ToggleSwitch value={isOrg} onToggle={setIsOrg} onLabel="Org" offLabel="User" />
+                    </div>
+                    <div className="flex-1 flex justify-center">
+                      <FilterButton />
+                    </div>
                   </div>
                   {/* 
                     Method to make this display as a grid - map it into an array of cards.
