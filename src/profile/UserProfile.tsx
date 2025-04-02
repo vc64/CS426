@@ -1,6 +1,6 @@
 import { Star, ArrowLeft, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "./contexts/userContext";
+import { useUser } from "../contexts/userContext.tsx";
 import { ProfileBackButton, ProfileImage, ProfileLocation, ProfileUsername } from "./ProfileComponents.tsx";
 
 const UserProfile = () => {

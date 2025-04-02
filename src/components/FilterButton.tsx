@@ -1,4 +1,4 @@
-import { useTag } from "./contexts/TagContext.tsx";
+import { useTag } from "../contexts/TagContext.tsx";
 
 const buttonStyle = {
   backgroundColor: "var(--color-fern)",

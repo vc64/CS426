@@ -1,7 +1,7 @@
 import { Clock, Tag, Utensils } from 'lucide-react';
-import { foodItemType } from './data/foodItems';
+import { foodItemType } from '../data/foodItems';
 import { useContext } from 'react';
-import { FoodListingContext } from './contexts/FoodListingContext';
+import { FoodListingContext } from '../contexts/FoodListingContext';
 import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
 
 

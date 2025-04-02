@@ -1,13 +1,13 @@
 import { Star, StarHalf, ArrowLeft, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useOrg } from "./contexts/orgContext";
-import OrgFoodCard from "./OrgFoodCard.tsx";
-import { FoodForm } from './FoodForm.tsx';
-import { FoodListingContext } from './contexts/FoodListingContext';
+import { useOrg } from "../contexts/orgContext.tsx";
+import OrgFoodCard from "../foodCard/OrgFoodCard.tsx";
+import { FoodForm } from '../components/FoodForm.tsx';
+import { FoodListingContext } from '../contexts/FoodListingContext.tsx';
 import { useContext, useEffect } from "react";
-import FilterButton from "./FilterButton.tsx";
-import { foodItemType } from "./data/foodItems.ts";
-import { useTag } from "./contexts/TagContext.tsx";
+import FilterButton from "../components/FilterButton.tsx";
+import { foodItemType } from "../data/foodItems.ts";
+import { useTag } from "../contexts/TagContext.tsx";
 import { ProfileBackButton, ProfileImage, ProfileUsername, ProfileLocation } from "./ProfileComponents.tsx";
 
 const OrgProfile = () => {
@@ -109,7 +109,7 @@ const OrgProfile = () => {
     <div className="pt-7">
       <FilterButton />
     </div>
-    
+
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
         {org.listings.map((item, index) => (
         <OrgFoodCard

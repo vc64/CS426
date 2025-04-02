@@ -1,5 +1,5 @@
 import { Heart, HeartOff } from 'lucide-react';
-import { foodItemType } from './data/foodItems';
+import { foodItemType } from '../data/foodItems';
 import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
 
 // Food Card component
