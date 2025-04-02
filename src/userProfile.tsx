@@ -1,4 +1,4 @@
-import { Star, ArrowLeft, MapPin } from "lucide-react";
+import { Star, ArrowLeft, MapPin, Edit, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "./contexts/userContext";
 
@@ -16,7 +16,7 @@ const UserProfile = () => {
         backgroundColor: "var(--color-cream)",
         minHeight: "100vh",
         padding: "20px",
-        width: "100vw"
+        width: "100vw",
       }}
     >
       {" "}
@@ -32,7 +32,13 @@ const UserProfile = () => {
       {/* profile content - using proper spacing and colors to match the wireframe */}
       <div className="max-w-lg mx-auto px-4">
         {/* user info card with white background */}
-        <div className="bg-white rounded-lg p-8 mb-6 flex flex-col items-center text-center shadow-sm">
+        <div className="bg-white rounded-lg p-8 mb-6 flex flex-col items-center text-center shadow-sm relative">
+          <button
+            title="Settings"
+            className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            <Settings size={20} className="text-white" />
+          </button>
           {/* profile image */}
           <div className="w-24 h-24 rounded-full overflow-hidden mb-6 border-2 border-orange-400">
             {user.profileImage ? (
@@ -98,18 +104,24 @@ const UserProfile = () => {
           </div>
         </div>
 
-        {/* Dietary preferences section - light green background */}
-        <div className="bg-emerald-700 p-6 rounded-lg mb-6">
+        {/* Dietary preferences */}
+        <div className="bg-emerald-700 p-6 rounded-lg mb-6 relative">
           <h3 className="text-xl font-bold mb-2 text-center text-white">
             Dietary Preferences:
           </h3>
           <p className="text-lg text-center text-white">
             {user.dietaryPreferences.join(", ")}
+            <button
+              title="Edit dietary preferences"
+              className="absolute top-3 right-3 p-1 rounded-md !bg-transparent !hover:bg-white/20 transition-colors"
+            >
+              <Edit size={18} className="text-white" />
+            </button>
           </p>
         </div>
 
-        {/* Current location section - dark green background */}
-        <div className="bg-emerald-700 text-white p-6 rounded-lg">
+        {/* Current location */}
+        <div className="bg-emerald-700 text-white p-6 rounded-lg relative">
           <h3 className="text-xl font-bold mb-2 text-center">
             Current Location:
           </h3>
@@ -117,6 +129,12 @@ const UserProfile = () => {
             <MapPin size={20} className="mr-2" />
             {user.currentLocation}
           </div>
+          <button
+            title="Edit current location"
+            className="absolute top-3 right-3 p-1 rounded-md !bg-transparent !hover:bg-white/20 transition-colors"
+          >
+            <Edit size={18} className="text-white" />
+          </button>
         </div>
       </div>
     </div>
