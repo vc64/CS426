@@ -1,6 +1,7 @@
 import { Heart, HeartOff } from 'lucide-react';
 import { foodItemType } from '../data/foodItems';
-import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
+import { FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
+import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave } from './FoodCardConstants';
 
 // Food Card component
 const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: number) => void}) => {

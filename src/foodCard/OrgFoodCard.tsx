@@ -1,5 +1,6 @@
 import { foodItemType } from '../data/foodItems';
-import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
+import { FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
+import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave } from './FoodCardConstants';
 
 
 // Food Card component
