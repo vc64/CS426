@@ -1,4 +1,4 @@
-import FoodCard from "./foodCard";
+import FoodCard from "./UserFoodCard.tsx";
 import { useState, useEffect, useContext } from "react";
 import FilterButton from "./FilterButton";
 import "./App.css";
