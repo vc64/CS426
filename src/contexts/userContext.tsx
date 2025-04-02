@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, ReactNode } from "react";
+import { createContext, useState, ReactNode } from "react";
 
 export type UserProfileType = {
   username: string;
@@ -76,8 +76,5 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     </UserContext.Provider>
   );
 };
-
-// custom hook for using the user context
-export const useUser = () => useContext(UserContext);
 
 export default UserContext;

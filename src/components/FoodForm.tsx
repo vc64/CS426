@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { X } from "lucide-react";
-import { FoodListingContext } from "./contexts/FoodListingContext";
-import { foodItemType } from "./data/foodItems";
-import { FoodCardsContext } from "./contexts/FoodCardsContext";
+import { FoodListingContext } from "../contexts/FoodListingContext";
+import { foodItemType } from "../data/foodItems";
+import { FoodCardsContext } from "../contexts/FoodCardsContext";
 
 const ImageUpload = () => {
   const [, setSelectedFile] = useState<File | null>(null);

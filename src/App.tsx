@@ -1,19 +1,19 @@
-import FoodCard from "./foodCard";
+import FoodCard from "./foodCard/UserFoodCard.tsx";
 import { useState, useEffect, useContext } from "react";
-import FilterButton from "./FilterButton";
+import FilterButton from "./components/FilterButton.tsx";
 import "./App.css";
-import AppBanner from "./Banner.tsx";
+import AppBanner from "./components/Banner.tsx";
 import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UserProfile from "./userProfile";
-import { UserProvider } from "./contexts/userContext";
-import OrgProfile from './OrgProfile.tsx';
-import { OrgProvider } from './contexts/orgContext.tsx';
-import { FoodForm } from './FoodForm.tsx';
+import UserProfile from "./profile/UserProfile.tsx";
+import { UserProvider } from "./contexts/UserContext.tsx";
+import OrgProfile from './profile/OrgProfile.tsx';
+import { OrgProvider } from './contexts/OrgContext.tsx';
+import { FoodForm } from './components/FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
-import { useTag } from "./contexts/TagContext.tsx";
-import ToggleSwitch from "./Toggle.tsx";
+import { useTag } from "./contexts/ExportContexts.tsx";
+import ToggleSwitch from "./components/Toggle.tsx";
 
 function App() {
   // Mock data for the cards
@@ -55,8 +55,6 @@ function App() {
   }, [selectedTag, allFoodItems]);
 
   const sortCards = () => {
-    // const active = foodItems.filter((e) => e.active);
-    // const notActive = foodItems.filter((e) => !e.active);
     const active = allFoodItems.filter((e) => e.active);
     const notActive = allFoodItems.filter((e) => !e.active);
     const activeList = sortFood(active);
