@@ -1,6 +1,6 @@
 import { Heart, HeartOff } from 'lucide-react';
 import { foodItemType } from './data/foodItems';
-import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, foodCardImage, foodCardText, foodCardTags } from './FoodCardComponents';
+import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
 
 // Food Card component
 const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: number) => void}) => {
@@ -27,7 +27,7 @@ const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: n
     // Used many Tailwind CSS classes to have the styling applied
     <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 w-[350px]">
       <div className="relative">
-        {foodCardImage({ imageUrl, foodName, active })}
+        {FoodCardImage({ imageUrl, foodName, active })}
         <div className="absolute top-0 left-0 m-2" onClick={handleFavoriteClick}>
           {isFavorite ? (
             <div className="bg-white p-2 rounded-full shadow-md">
@@ -43,9 +43,9 @@ const FoodCard = ({ food, favToggle }: {food: foodItemType, favToggle: (index: n
 
       <div className="p-4">
 
-        {foodCardText({ foodName, restaurantName, distance, pickupTime, isUser: true })}
+        {FoodCardText({ foodName, restaurantName, distance, pickupTime, isUser: true })}
 
-        {foodCardTags({ tags })}
+        {FoodCardTags({ tags })}
         
         <button style={foodCardButtonStyle} onMouseEnter={(e) => handleMouseEnter(e)} onMouseLeave={(e) => handleMouseLeave(e)}>Reserve Now</button>
 

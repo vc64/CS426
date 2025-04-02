@@ -2,7 +2,7 @@ import { Clock, Tag, Utensils } from 'lucide-react';
 import { foodItemType } from './data/foodItems';
 import { useContext } from 'react';
 import { FoodListingContext } from './contexts/FoodListingContext';
-import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, foodCardImage, foodCardText, foodCardTags } from './FoodCardComponents';
+import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
 
 
 // Food Card component
@@ -28,14 +28,14 @@ const OrgFoodCard = ({ food }: {food: foodItemType}) => {
     // Used many Tailwind CSS classes to have the styling applied
     <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
       <div className="relative">
-        {foodCardImage({ imageUrl, foodName, active })}
+        {FoodCardImage({ imageUrl, foodName, active })}
       </div>
       
       <div className="p-4">
 
-        {foodCardText({ foodName, restaurantName, distance, pickupTime, isUser: false })}
+        {FoodCardText({ foodName, restaurantName, distance, pickupTime, isUser: false })}
 
-        {foodCardTags({ tags })}
+        {FoodCardTags({ tags })}
         
         <button style={foodCardButtonStyle} onMouseEnter={(e) => handleMouseEnter(e)} onMouseLeave={(e) => handleMouseLeave(e)}>Edit</button>
 

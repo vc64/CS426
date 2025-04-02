@@ -25,7 +25,7 @@ export const handleMouseEnter = (e) => e.target.style.backgroundColor = '#15803d
   
 export const handleMouseLeave = (e) => e.target.style.backgroundColor = '#16a34a';
 
-export const foodCardImage = ({ imageUrl, foodName, active }: { imageUrl: string; foodName: string; active: boolean }) => (
+export const FoodCardImage = ({ imageUrl, foodName, active }: { imageUrl: string; foodName: string; active: boolean }) => (
    <div>
       <img 
          src={"/src/assets/" + imageUrl} 
@@ -38,7 +38,7 @@ export const foodCardImage = ({ imageUrl, foodName, active }: { imageUrl: string
    </div>
 );
 
-export const foodCardText = ({ foodName, restaurantName, distance, pickupTime, isUser }: { foodName: string; restaurantName: string; distance: number; pickupTime: string; isUser: boolean }) => (
+export const FoodCardText = ({ foodName, restaurantName, distance, pickupTime, isUser }: { foodName: string; restaurantName: string; distance: number; pickupTime: string; isUser: boolean }) => (
    <div>
       <div className="flex justify-between items-start mb-2">
          <h3 className="text-xl font-bold text-gray-800">{foodName}</h3>
@@ -61,7 +61,7 @@ export const foodCardText = ({ foodName, restaurantName, distance, pickupTime, i
    </div>
 );
 
-export const foodCardTags = ({ tags }: { tags: string[] }) => (
+export const FoodCardTags = ({ tags }: { tags: string[] }) => (
    <div className="flex flex-wrap gap-1 mb-3">
       {tags.map((tag, index) => (
       <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-xs">

@@ -5,7 +5,7 @@ import "./App.css";
 import AppBanner from "./Banner.tsx";
 import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UserProfile from "./userProfile";
+import UserProfile from "./UserProfile.tsx";
 import { UserProvider } from "./contexts/userContext";
 import OrgProfile from './OrgProfile.tsx';
 import { OrgProvider } from './contexts/orgContext.tsx';
@@ -55,8 +55,6 @@ function App() {
   }, [selectedTag, allFoodItems]);
 
   const sortCards = () => {
-    // const active = foodItems.filter((e) => e.active);
-    // const notActive = foodItems.filter((e) => !e.active);
     const active = allFoodItems.filter((e) => e.active);
     const notActive = allFoodItems.filter((e) => !e.active);
     const activeList = sortFood(active);
