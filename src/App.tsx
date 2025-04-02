@@ -6,13 +6,13 @@ import AppBanner from "./components/Banner.tsx";
 import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from "./profile/UserProfile.tsx";
-import { UserProvider } from "./contexts/userContext";
+import { UserProvider } from "./contexts/UserContext.tsx";
 import OrgProfile from './profile/OrgProfile.tsx';
-import { OrgProvider } from './contexts/orgContext.tsx';
+import { OrgProvider } from './contexts/OrgContext.tsx';
 import { FoodForm } from './components/FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
-import { useTag } from "./contexts/TagContext.tsx";
+import { useTag } from "./contexts/ExportContexts.tsx";
 import ToggleSwitch from "./components/Toggle.tsx";
 
 function App() {

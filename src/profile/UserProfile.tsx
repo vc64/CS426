@@ -1,10 +1,8 @@
-import { Star, ArrowLeft, MapPin } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../contexts/userContext.tsx";
+import { Star } from "lucide-react";
+import { useUser } from "../contexts/ExportContexts";
 import { ProfileBackButton, ProfileImage, ProfileLocation, ProfileUsername } from "./ProfileComponents.tsx";
 
 const UserProfile = () => {
-  const navigate = useNavigate();
   const { user } = useUser();
 
   // progess percentage for the reward bar

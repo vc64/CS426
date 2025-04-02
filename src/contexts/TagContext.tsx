@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode } from 'react';
 
 type TagContextType = {
   selectedTag: string;
@@ -17,12 +17,4 @@ const TagProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const useTag = () => {
-  const context = useContext(TagContext);
-  if (!context) {
-    throw new Error("useTag must be used within a CounterProvider");
-  }
-  return context;
-};
-
-export {TagProvider, useTag};
+export {TagProvider, TagContext};

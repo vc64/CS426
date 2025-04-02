@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, ReactNode } from "react";
+import { createContext, useState, ReactNode } from "react";
 import { foodItems, foodItemType } from "../data/foodItems";
 
 export type OrgProfileType = {
@@ -79,8 +79,5 @@ export const OrgProvider = ({ children }: { children: ReactNode }) => {
     </OrgContext.Provider>
   );
 };
-
-// custom hook for using the organization context
-export const useOrg = () => useContext(OrgContext);
 
 export default OrgContext;

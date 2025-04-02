@@ -1,4 +1,4 @@
-import { Star, StarHalf, ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const ProfileBackButton = () => {

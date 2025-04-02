@@ -1,13 +1,11 @@
-import { Star, StarHalf, ArrowLeft, MapPin } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useOrg } from "../contexts/orgContext.tsx";
+import { Star, StarHalf } from "lucide-react";
 import OrgFoodCard from "../foodCard/OrgFoodCard.tsx";
 import { FoodForm } from '../components/FoodForm.tsx';
 import { FoodListingContext } from '../contexts/FoodListingContext.tsx';
 import { useContext, useEffect } from "react";
 import FilterButton from "../components/FilterButton.tsx";
 import { foodItemType } from "../data/foodItems.ts";
-import { useTag } from "../contexts/TagContext.tsx";
+import { useTag, useOrg } from "../contexts/ExportContexts.tsx";
 import { ProfileBackButton, ProfileImage, ProfileUsername, ProfileLocation } from "./ProfileComponents.tsx";
 
 const OrgProfile = () => {

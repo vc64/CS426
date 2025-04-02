@@ -1,7 +1,4 @@
-import { Clock, Tag, Utensils } from 'lucide-react';
 import { foodItemType } from '../data/foodItems';
-import { useContext } from 'react';
-import { FoodListingContext } from '../contexts/FoodListingContext';
 import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, FoodCardImage, FoodCardText, FoodCardTags } from './FoodCardComponents';
 
 
@@ -9,11 +6,8 @@ import { defaultFood, foodCardButtonStyle, handleMouseEnter, handleMouseLeave, F
 const OrgFoodCard = ({ food }: {food: foodItemType}) => {
     // Allows us to have default values for the card
   const foodData = { ...defaultFood, ...food };
-
-  const foodListingContext = useContext(FoodListingContext)!;
   
   const {
-    id,
     foodName,
     restaurantName,
     imageUrl,
@@ -21,7 +15,6 @@ const OrgFoodCard = ({ food }: {food: foodItemType}) => {
     pickupTime,
     tags,
     active,
-    isFavorite
   } = foodData;
   
   return (
