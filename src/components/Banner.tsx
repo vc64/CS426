@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Banner.css";
 import { useContext } from "react";
-import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
-import { Space } from "lucide-react";
+import { FoodListingContext } from "../contexts/FoodListingContext.tsx";
 
 type BannerProps = {
   logoSrc: string;

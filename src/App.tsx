@@ -1,19 +1,17 @@
-import FoodCard from "./foodCard";
-import { useState, useEffect, useContext } from "react";
-import FilterButton from "./FilterButton";
+import FoodCard from "./foodCard/UserFoodCard.tsx";
+import { useState, useEffect, useContext, lazy } from "react";
+import FilterButton from "./components/FilterButton.tsx";
 import "./App.css";
-import AppBanner from "./Banner.tsx";
+import AppBanner from "./components/Banner.tsx";
 import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UserProfile from "./userProfile";
-import { UserProvider } from "./contexts/userContext";
-import OrgProfile from './OrgProfile.tsx';
-import { OrgProvider } from './contexts/orgContext.tsx';
-import { FoodForm } from './FoodForm.tsx';
+import { UserProvider } from "./contexts/UserContext.tsx";
+import { OrgProvider } from './contexts/OrgContext.tsx';
+import { FoodForm } from './components/FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
-import { useTag } from "./contexts/TagContext.tsx";
-import ToggleSwitch from "./Toggle.tsx";
+import { useTag } from "./contexts/ExportContexts.tsx";
+import ToggleSwitch from "./components/Toggle.tsx";
 
 function App() {
   // Mock data for the cards
@@ -25,6 +23,10 @@ function App() {
 
   // Used for setting context to either user or organization.
   const [isOrg, setIsOrg] = useState(false);
+
+  // React Router code splitting
+  const OrgView = lazy(() => import('./profile/OrgProfile.tsx'));
+  const UserView = lazy(() => import('./profile/UserProfile.tsx'));
 
   const cardMap = new Map<number, foodItemType>();
   // foodItems.forEach((e) => cardMap.set(e.id, e));
@@ -55,8 +57,6 @@ function App() {
   }, [selectedTag, allFoodItems]);
 
   const sortCards = () => {
-    // const active = foodItems.filter((e) => e.active);
-    // const notActive = foodItems.filter((e) => !e.active);
     const active = allFoodItems.filter((e) => e.active);
     const notActive = allFoodItems.filter((e) => !e.active);
     const activeList = sortFood(active);
@@ -102,9 +102,13 @@ function App() {
                     profileSrc="/src/assets/profile.png"
                     isOrg={isOrg}
                   />
-                  <div className="px-4 py-4">
-                    <FilterButton />
-                    <ToggleSwitch value={isOrg} onToggle={setIsOrg} onLabel="Org" offLabel="User" />
+                  <div className="px-4 py-4 relative flex items-center w-full">
+                    <div className="absolute left-10">
+                      <ToggleSwitch value={isOrg} onToggle={setIsOrg} onLabel="Org" offLabel="User" />
+                    </div>
+                    <div className="flex-1 flex justify-center">
+                      <FilterButton />
+                    </div>
                   </div>
                   {/* 
                     Method to make this display as a grid - map it into an array of cards.
@@ -128,7 +132,7 @@ function App() {
                 </>
               }
             />
-            <Route path="/profile" element={isOrg ? <OrgProfile/> : <UserProfile/>} />
+            <Route path="/profile" Component={isOrg ? OrgView : UserView} />
           </Routes>
         </div>
       </div>
