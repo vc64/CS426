@@ -20,6 +20,7 @@ export const ProfileImage = ({ profileImage, username }: { profileImage?: string
       <div className="w-24 h-24 rounded-full overflow-hidden mb-6 border-2 border-orange-400">
       {profileImage ? (
         <img
+          loading="lazy" 
           src={profileImage}
           alt={username}
           className="w-full h-full object-cover"
