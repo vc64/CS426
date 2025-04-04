@@ -20,7 +20,7 @@ const ImageUpload = () => {
     <div className="flex flex-col items-center gap-5">
       <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" id="fileInput"/>
       <div className={`w-[151px] h-[151px] border-black ${preview ? "" : "border-2"} rounded-md flex justify-center items-center`}>
-        {preview && <img src={preview} alt="Preview" className="w-[150px] h-[150px] object-cover rounded-md" />}
+        {preview && <img loading="lazy" src={preview} alt="Preview" className="w-[150px] h-[150px] object-cover rounded-md" />}
       </div>
       <label htmlFor="fileInput" className="cursor-pointer bg-[var(--color-fern)] text-white px-4 py-2 rounded-md hover:bg-[var(--color-fern)] text-xl font-semibold">Select Image</label>
     </div>

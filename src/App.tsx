@@ -1,13 +1,11 @@
 import FoodCard from "./foodCard/UserFoodCard.tsx";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, lazy } from "react";
 import FilterButton from "./components/FilterButton.tsx";
 import "./App.css";
 import AppBanner from "./components/Banner.tsx";
 import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UserProfile from "./profile/UserProfile.tsx";
 import { UserProvider } from "./contexts/UserContext.tsx";
-import OrgProfile from './profile/OrgProfile.tsx';
 import { OrgProvider } from './contexts/OrgContext.tsx';
 import { FoodForm } from './components/FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
@@ -25,6 +23,10 @@ function App() {
 
   // Used for setting context to either user or organization.
   const [isOrg, setIsOrg] = useState(false);
+
+  // React Router code splitting
+  const OrgView = lazy(() => import('./profile/OrgProfile.tsx'));
+  const UserView = lazy(() => import('./profile/UserProfile.tsx'));
 
   const cardMap = new Map<number, foodItemType>();
   // foodItems.forEach((e) => cardMap.set(e.id, e));
@@ -130,7 +132,7 @@ function App() {
                 </>
               }
             />
-            <Route path="/profile" element={isOrg ? <OrgProfile/> : <UserProfile/>} />
+            <Route path="/profile" Component={isOrg ? OrgView : UserView} />
           </Routes>
         </div>
       </div>

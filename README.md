@@ -13,3 +13,6 @@ To be expanded in the future.
 
 **Style Document:** \
 https://docs.google.com/document/d/1cRfobiRAtCNJh2LlAtl2kgKljoLDo22qnYP6dxLiejo/edit?usp=sharing
+
+**Performance Checklist:** \
+https://docs.google.com/document/d/11nvRHzojLdqrNAxF6OKAZKw6o62NwhqoTIGpGGUpgaQ/edit?usp=sharing

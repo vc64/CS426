@@ -3,6 +3,7 @@ import { Clock, Tag, MapPin, Utensils } from 'lucide-react';
 export const FoodCardImage = ({ imageUrl, foodName, active }: { imageUrl: string; foodName: string; active: boolean }) => (
    <div>
       <img 
+         loading="lazy"
          src={"/src/assets/" + imageUrl} 
          alt={foodName} 
          className="w-full h-48 object-cover"
