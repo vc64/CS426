@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model } from 'mongoose';
-import { IListing } from '../types/models';
+import { IListing } from '../types/models.js';
 
 const ListingSchema: Schema = new mongoose.Schema({
   title: {

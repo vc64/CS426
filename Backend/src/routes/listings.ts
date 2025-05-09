@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
-import auth from '../middleware/auth';
-import Listing from '../models/Listing';
-import Reservation from '../models/Reservation';
-import { IUser } from '../types/models';
+import auth from '../middleware/auth.js';
+import Listing from '../models/Listing.js';
+import Reservation from '../models/Reservation.js';
+import { IUser } from '../types/models.js';
 
 const router = express.Router();
 
