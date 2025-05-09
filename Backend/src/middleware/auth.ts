@@ -11,8 +11,8 @@ export default async function (
   res: Response,
   next: NextFunction
 ) {
-  // Get API key from header
-  const apiKey = req.header("x-auth-token");
+
+  const apiKey = req.header('x-auth-token'); // get key from mongodb registered user, put in header of request
 
   if (!apiKey) {
     return res

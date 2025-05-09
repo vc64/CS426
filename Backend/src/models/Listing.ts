@@ -2,49 +2,31 @@ import mongoose, { Schema, Model } from 'mongoose';
 import { IListing } from '../types/models.js';
 
 const ListingSchema: Schema = new mongoose.Schema({
-  title: {
+  foodName: {
     type: String,
     required: true,
-    trim: true
+    trim: false
   },
-  description: {
+  restaurantName: {
     type: String,
     required: true,
-    trim: true
+    trim: false
   },
-  foodType: {
+  imageUrl: {
     type: String,
-    enum: ['meal', 'snack', 'dessert', 'beverage', 'groceries', 'other'],
-    required: true
+    required: false
   },
-  quantity: {
+  distance: {
+    type: Number,
+    required: false
+  },
+  pickupTime: {
     type: String,
-    required: true
+    required: false
   },
-  location: {
-    address: {
-      type: String,
-      required: true
-    },
-    building: String,
-    room: String,
-    coordinates: {
-      type: [Number], // [longitude, latitude]
-      index: '2dsphere'
-    }
-  },
-  availableFrom: {
-    type: Date,
-    required: true
-  },
-  availableUntil: {
-    type: Date,
-    required: true
-  },
-  status: {
-    type: String,
-    enum: ['available', 'reserved', 'completed', 'expired'],
-    default: 'available'
+  tags: {
+    type: [String],
+    required: false
   },
   provider: {
     type: mongoose.Schema.Types.ObjectId,
