@@ -8,7 +8,7 @@ import { IUser } from '../types/models';
  */
 export default async function(req: Request, res: Response, next: NextFunction) {
   // Get API key from header
-  const apiKey = req.header('x-auth-token');
+  const apiKey = req.header('x-auth-token'); // get key from mongodb registered user, put in header of request
 
   if (!apiKey) {
     return res.status(401).json({ msg: 'No authentication token, authorization denied' });
