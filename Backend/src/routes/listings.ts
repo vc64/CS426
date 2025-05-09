@@ -127,44 +127,4 @@ router.delete('/:foodName', auth, async (req: Request, res: Response) => { // de
   }
 });
 
-router.post('/:id/reserve', auth, async (req: Request, res: Response) => {
-  try {
-    const currentUser = req.user as IUser;
-    
-    const listing = await Listing.findById(req.params.id);
-    
-    if (!listing) {
-      return res.status(404).json({ msg: 'Listing not found' });
-    }
-
-    // Check if listing is available
-    if (listing.status !== 'available') {
-      return res.status(400).json({ msg: 'Listing is not available' });
-    }
-
-    // Check if user is not the provider
-    if (listing.provider.toString() === currentUser._id.toString()) {
-      return res.status(400).json({ msg: 'Cannot reserve your own listing' });
-    }
-
-    // Create reservation
-    const newReservation = new Reservation({
-      listing: req.params.id,
-      student: currentUser._id,
-      notes: req.body.notes,
-      pickupTime: req.body.pickupTime || listing.availableUntil
-    });
-
-    // Update listing status
-    listing.status = 'reserved';
-    await listing.save();
-
-    const reservation = await newReservation.save();
-    res.json(reservation);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
-
 export default router;
