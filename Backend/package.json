@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Backend for Minuteman Meals food sharing platform (TypeScript)",
   "main": "dist/server.js",
+  "type": "module",
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "nodemon src/server.ts",
+    "start": "node --experimental-specifier-resolution=node dist/server.js",
+    "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"

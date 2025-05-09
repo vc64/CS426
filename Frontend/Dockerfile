@@ -1,11 +1,12 @@
 FROM node:18-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
+
 COPY . .
 
-# build TypeScript code
-RUN npm run build
+EXPOSE 5173
 
-EXPOSE 4000
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"] 
