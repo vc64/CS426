@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import OrgContext from "./OrgContext";
-import UserContext from "./UserContext";
+import OrgContext from "./orgContext";
+import UserContext from "./userContext";
 import { TagContext } from "./TagContext";
 
 // custom hook for using the organization context

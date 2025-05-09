@@ -1,7 +1,8 @@
 version: '3'
 services:
   backend:
-    build: .
+    build:
+      context: .
     ports:
       - "4000:4000"
     env_file:
@@ -9,3 +10,17 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/minuteman_meals
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
