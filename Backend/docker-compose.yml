@@ -11,7 +11,8 @@ services:
       - backend
 
   backend:
-    build: .
+    build:
+      context: .
     ports:
       - "4000:4000"
     env_file:
@@ -30,18 +31,7 @@ services:
       - .env
     volumes:
       - mongodb_data:/data/db
-
-# example microservice:
-#   microservice1:
-#     build:
-#       context: ./microservices/service1
-#     ports:
-#       - "4001:4001"
-#     depends_on:
-#       - mongodb
-#     env_file:
-#       - .env
-
+      
 volumes:
   mongodb_data:
 # frontend: http://localhost:5173
