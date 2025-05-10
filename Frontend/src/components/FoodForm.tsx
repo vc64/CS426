@@ -87,7 +87,7 @@ const FoodForm =  () => {
     setAddress(undefined);
   }, [isOpen]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const newFood: foodItemType = {
       id: 0,
       foodName: food,
@@ -100,6 +100,34 @@ const FoodForm =  () => {
       isFavorite: false
     }
     addCard(newFood);
+    const databaseFood = { // food info to be added to the database
+      foodName: food,
+      restaurantName: orgName,
+      imageUrl: "Pizza.jpg",
+      distance: 0,
+      pickupTime: `${times ? times.date : ""}, ${times ? times.start : ""} - ${times ? times.end : ""}`,
+      tags: Object.entries(tags).filter(([,v]) => v).map(([k,]) => k),
+    }
+    try {
+      const response = await fetch('http://localhost:4000/api/listings/upload', { // post to database. make sure backend is running (npm run build, npm start in backend folder)
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': '681d539d2f059a2cb608e277'
+        },
+        body: JSON.stringify(databaseFood)
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error('Upload failed:', response.status, errText);
+      }
+      else{
+        console.log('Fetch completed');
+      }
+    } catch (err) {
+      console.error('Fetch error:', err);
+    }
     toggleOpen();
   }
 
