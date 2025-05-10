@@ -19,6 +19,5 @@ export const foodCardButtonStyle = {
    transition: 'background-color 200ms',
 };
 
-export const handleMouseEnter = (e) => e.target.style.backgroundColor = '#15803d';
-  
-export const handleMouseLeave = (e) => e.target.style.backgroundColor = '#16a34a';
+export const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => e.currentTarget.style.backgroundColor = '#15803d';  
+export const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => e.currentTarget.style.backgroundColor = '#16a34a';

@@ -5,13 +5,16 @@ import "./App.css";
 import AppBanner from "./components/Banner.tsx";
 import { foodItemType } from "./data/foodItems.ts";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { UserProvider } from "./contexts/UserContext.tsx";
-import { OrgProvider } from './contexts/OrgContext.tsx';
+import { UserProvider } from "./contexts/userContext.tsx";
+import { OrgProvider } from './contexts/orgContext.tsx';
 import { FoodForm } from './components/FoodForm.tsx';
 import { FoodListingContext } from "./contexts/FoodListingContext.tsx";
 import { FoodCardsContext } from "./contexts/FoodCardsContext.tsx";
 import { useTag } from "./contexts/ExportContexts.tsx";
 import ToggleSwitch from "./components/Toggle.tsx";
+import LoginRegister from './profile/LoginRegister.tsx';
+import ProtectedRoute from "./profile/ProtectedRoute.tsx";
+
 
 function App() {
   // Mock data for the cards
@@ -28,8 +31,12 @@ function App() {
   const OrgView = lazy(() => import('./profile/OrgProfile.tsx'));
   const UserView = lazy(() => import('./profile/UserProfile.tsx'));
 
+  const isLoggedIn = (): boolean => {
+    return !!localStorage.getItem('token');
+  }
+  
+
   const cardMap = new Map<number, foodItemType>();
-  // foodItems.forEach((e) => cardMap.set(e.id, e));
   foodCards.forEach((e) => cardMap.set(e.id, e));
   // We want to separate first into two groups - active or not active
   // Then order first by favorites, then by distance
@@ -132,7 +139,15 @@ function App() {
                 </>
               }
             />
-            <Route path="/profile" Component={isOrg ? OrgView : UserView} />
+            <Route path="/auth" element={<LoginRegister />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  {<UserView />}
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </div>
       </div>
