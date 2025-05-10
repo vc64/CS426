@@ -9,6 +9,7 @@ dotenv.config();
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import listingRoutes from "./routes/listings.js";
+import photoRoutes from "./routes/photos.js";
 
 import connectDB from "./config/db.js";
 connectDB();
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/listings", listingRoutes);
+app.use("/api/photos", photoRoutes);
 
 app.get("/", (_req: Request, res: Response) => {
   res.send("Minuteman Meals API is running");
