@@ -48,3 +48,13 @@ export interface IReservation extends Document {
   notes?: string;
   createdAt: Date;
 }
+
+export interface IPhoto extends Document {
+  url: string;
+  filename: string;
+  mimetype: string;
+  size: number;
+  uploadedAt: Date;
+  uploadedBy: Types.ObjectId | IUser;
+  altText: string;
+}
